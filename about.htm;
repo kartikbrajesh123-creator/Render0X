@@ -1,0 +1,427 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Render0X - Under Development</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #030510;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            height: 90px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid rgba(120, 90, 255, 0.2);
+            background: rgba(3, 5, 16, 0.96);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 46px;
+            height: 40px;
+            border: 3px solid #a83cff;
+            border-right-color: #318cff;
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 0 12px rgba(190, 40, 255, 0.7),
+                0 0 18px rgba(40, 120, 255, 0.4);
+
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: "•••";
+            color: #9d52ff;
+            font-size: 18px;
+            letter-spacing: 3px;
+        }
+
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 7px;
+            width: 12px;
+            height: 12px;
+            border-left: 3px solid #a83cff;
+            transform: skew(-25deg);
+        }
+
+        .logo span {
+            background: linear-gradient(
+                90deg,
+                white 45%,
+                #a63dff 70%,
+                #318cff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #d5d5df;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.25s;
+        }
+
+        nav a:hover {
+            color: #b14cff;
+        }
+
+        .signin {
+            padding: 11px 22px;
+            border-radius: 9px;
+            text-decoration: none;
+            color: white;
+
+            border: 2px solid transparent;
+
+            background:
+                linear-gradient(#080b1a, #080b1a) padding-box,
+                linear-gradient(90deg, #ed27ff, #348cff) border-box;
+
+            box-shadow: 0 0 13px rgba(180, 50, 255, 0.3);
+
+            transition: 0.25s;
+        }
+
+        .signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(180, 50, 255, 0.5);
+        }
+
+        /* ================= MAIN ================= */
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 25% 50%,
+                    rgba(130, 0, 255, 0.13),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 75% 50%,
+                    rgba(0, 100, 255, 0.13),
+                    transparent 30%
+                );
+        }
+
+        /* Decorative neon circles */
+
+        .glow {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 1px solid rgba(170, 50, 255, 0.18);
+            box-shadow:
+                0 0 60px rgba(150, 40, 255, 0.08),
+                inset 0 0 60px rgba(50, 120, 255, 0.05);
+        }
+
+        .glow.one {
+            left: -120px;
+            top: 15%;
+        }
+
+        .glow.two {
+            right: -120px;
+            bottom: 10%;
+            border-color: rgba(40, 130, 255, 0.18);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 50px 20px;
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 28px;
+
+            border-radius: 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 43px;
+
+            border: 2px solid transparent;
+
+            background:
+                linear-gradient(#080b1a, #080b1a) padding-box,
+                linear-gradient(135deg, #e32cff, #348cff) border-box;
+
+            box-shadow:
+                0 0 25px rgba(190, 40, 255, 0.3),
+                0 0 35px rgba(40, 120, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+
+            background: linear-gradient(
+                90deg,
+                #d03cff,
+                #7650ff,
+                #318cff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #eeeeF5;
+            margin-bottom: 16px;
+        }
+
+        .message {
+            max-width: 600px;
+            margin: auto;
+
+            color: #999aaa;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 9px 18px;
+
+            border-radius: 20px;
+
+            color: #c56cff;
+            background: rgba(170, 50, 255, 0.08);
+            border: 1px solid rgba(170, 50, 255, 0.3);
+
+            font-size: 14px;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 30px;
+
+            padding: 13px 27px;
+
+            border-radius: 9px;
+
+            color: white;
+            text-decoration: none;
+
+            border: 1px solid #7246ff;
+
+            background: rgba(100, 50, 255, 0.08);
+
+            transition: 0.25s;
+        }
+
+        .home-button:hover {
+            background: linear-gradient(90deg, #792cff, #327dff);
+            box-shadow: 0 0 20px rgba(120, 50, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid rgba(120, 90, 255, 0.18);
+            padding: 22px 5%;
+            text-align: center;
+            background: #02040c;
+        }
+
+        footer p {
+            color: #707487;
+            font-size: 14px;
+        }
+
+        footer span {
+            color: #a84cff;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            header {
+                height: auto;
+                padding: 18px 20px;
+                flex-wrap: wrap;
+                gap: 18px;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .signin {
+                font-size: 14px;
+                padding: 9px 15px;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span>Render0X</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="info.html">Info</a>
+            <a href="how-to-use.html">How to Use</a>
+        </nav>
+
+        <a href="signin.html" class="signin">
+            👤 Sign In
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+
+        <div class="content">
+
+            <div class="icon">
+                🚧
+            </div>
+
+            <h1>
+                Coming Soon
+            </h1>
+
+            <h2>
+                This feature is currently under development.
+            </h2>
+
+            <p class="message">
+                We're working behind the scenes to make Render0X
+                better, faster and more fun.
+                This feature will be available soon.
+                Stay tuned!
+            </p>
+
+            <div class="status">
+                ✨ Render0X Development Team
+            </div>
+
+            <br>
+
+            <a href="index.html" class="home-button">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 <span>Render0X</span>.
+            All rights reserved.
+            &nbsp; • &nbsp;
+            Connect. Chat. Play. Together.
+        </p>
+
+    </footer>
+
+</body>
+</html>
+```
