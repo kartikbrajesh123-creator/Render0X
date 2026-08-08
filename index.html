@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Render0X - Connect. Chat. Play.</title>
-
 
 <style>
 
 /* =====================================================
-   RENDER0X
-   HOME PAGE
+   RENDER0X THEME VARIABLES
    ===================================================== */
 
 :root {
-
     --primary: #d52cff;
     --secondary: #318cff;
 
     --background: #030510;
     --surface: #080b1a;
-    --surface-2: #0b0e20;
-
     --text: #ffffff;
     --muted: #b8bac8;
 
-    --border: rgba(140, 65, 255, 0.35);
-
-    --transition: 0.3s ease;
+    --border: rgba(140,65,255,.35);
 }
 
 
@@ -41,50 +30,22 @@
    ===================================================== */
 
 * {
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 html {
-
     scroll-behavior: smooth;
-
 }
 
 body {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:
-        var(--background);
-
-    color:
-        var(--text);
-
-    min-height:
-        100vh;
-
-    overflow-x:
-        hidden;
-
-    transition:
-        background 0.4s ease,
-        color 0.4s ease;
-
-}
-
-button,
-a {
-
-    font-family:
-        inherit;
-
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: .4s;
 }
 
 
@@ -93,39 +54,21 @@ a {
    ===================================================== */
 
 header {
-
     height: 88px;
+    padding: 0 4%;
 
-    padding:
-        0 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    display:
-        flex;
+    background: rgba(3,5,16,.94);
 
-    align-items:
-        center;
+    border-bottom: 1px solid var(--border);
 
-    justify-content:
-        space-between;
+    position: relative;
+    z-index: 20;
 
-    gap:
-        25px;
-
-    background:
-        rgba(3, 5, 16, 0.94);
-
-    border-bottom:
-        1px solid var(--border);
-
-    position:
-        relative;
-
-    z-index:
-        50;
-
-    backdrop-filter:
-        blur(12px);
-
+    backdrop-filter: blur(12px);
 }
 
 
@@ -134,128 +77,73 @@ header {
    ===================================================== */
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-    display:
-        flex;
+    color: white;
+    text-decoration: none;
 
-    align-items:
-        center;
-
-    gap:
-        12px;
-
-    color:
-        white;
-
-    text-decoration:
-        none;
-
-    font-size:
-        29px;
-
-    font-weight:
-        700;
-
-    white-space:
-        nowrap;
-
+    font-size: 29px;
+    font-weight: 700;
 }
 
 .logo-icon {
+    width: 47px;
+    height: 42px;
 
-    width:
-        47px;
+    border: 3px solid var(--primary);
+    border-right-color: var(--secondary);
 
-    height:
-        42px;
+    border-radius: 14px;
 
-    border:
-        3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    border-right-color:
-        var(--secondary);
-
-    border-radius:
-        14px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    position:
-        relative;
+    position: relative;
 
     box-shadow:
         0 0 12px var(--primary),
-        0 0 22px rgba(45, 120, 255, 0.25);
-
+        0 0 22px rgba(45,120,255,.25);
 }
 
 .logo-icon::before {
+    content: "•••";
 
-    content:
-        "•••";
+    color: var(--primary);
 
-    color:
-        var(--primary);
-
-    font-size:
-        18px;
-
-    letter-spacing:
-        3px;
-
+    font-size: 18px;
+    letter-spacing: 3px;
 }
 
 .logo-icon::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    bottom: -8px;
+    left: 7px;
 
-    bottom:
-        -8px;
+    width: 12px;
+    height: 12px;
 
-    left:
-        7px;
+    border-left: 3px solid var(--primary);
 
-    width:
-        12px;
-
-    height:
-        12px;
-
-    border-left:
-        3px solid var(--primary);
-
-    transform:
-        skew(-25deg);
-
+    transform: skew(-25deg);
 }
 
 .logo span {
-
     background:
         linear-gradient(
             90deg,
             white 40%,
-            var(--primary) 70%,
+            var(--primary),
             var(--secondary)
         );
 
-    -webkit-background-clip:
-        text;
-
-    -webkit-text-fill-color:
-        transparent;
-
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 
@@ -264,76 +152,42 @@ header {
    ===================================================== */
 
 nav {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        34px;
-
+    display: flex;
+    align-items: center;
+    gap: 34px;
 }
 
 nav a {
+    color: #eeeeee;
 
-    color:
-        #eeeeee;
+    text-decoration: none;
 
-    text-decoration:
-        none;
+    font-size: 17px;
 
-    font-size:
-        16px;
+    position: relative;
 
-    position:
-        relative;
-
-    transition:
-        color var(--transition);
-
+    transition: .3s;
 }
 
 nav a:hover {
-
-    color:
-        var(--primary);
-
+    color: var(--primary);
 }
 
 nav a.active {
-
-    color:
-        white;
-
+    color: white;
 }
 
 nav a.active::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    left: 0;
+    right: 0;
 
-    left:
-        0;
+    bottom: -13px;
 
-    right:
-        0;
-
-    bottom:
-        -13px;
-
-    height:
-        2px;
-
-    border-radius:
-        10px;
+    height: 2px;
 
     background:
         linear-gradient(
@@ -342,9 +196,7 @@ nav a.active::after {
             var(--secondary)
         );
 
-    box-shadow:
-        0 0 8px var(--primary);
-
+    box-shadow: 0 0 8px var(--primary);
 }
 
 
@@ -353,62 +205,41 @@ nav a.active::after {
    ===================================================== */
 
 .header-right {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        12px;
-
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 
 /* =====================================================
-   CUSTOMIZE BUTTON
+   THEME BUTTON
    ===================================================== */
 
 .customize-btn {
+    border: 1px solid var(--border);
 
-    border:
-        1px solid var(--border);
+    background: rgba(10,12,29,.9);
 
-    background:
-        rgba(10, 12, 29, 0.9);
+    color: white;
 
-    color:
-        white;
+    padding: 10px 14px;
 
-    padding:
-        10px 14px;
+    border-radius: 9px;
 
-    border-radius:
-        9px;
+    cursor: pointer;
 
-    cursor:
-        pointer;
+    font-size: 14px;
 
-    font-size:
-        15px;
-
-    transition:
-        0.3s ease;
-
+    transition: .3s;
 }
 
 .customize-btn:hover {
-
-    transform:
-        translateY(-2px);
-
-    border-color:
-        var(--primary);
+    border-color: var(--primary);
 
     box-shadow:
         0 0 15px var(--primary);
 
+    transform: translateY(-2px);
 }
 
 
@@ -417,51 +248,32 @@ nav a.active::after {
    ===================================================== */
 
 .signin {
+    padding: 11px 21px;
 
-    padding:
-        11px 21px;
+    border-radius: 9px;
 
-    border-radius:
-        9px;
+    color: white;
 
-    color:
-        white;
+    text-decoration: none;
 
-    text-decoration:
-        none;
-
-    border:
-        2px solid transparent;
+    border: 2px solid transparent;
 
     background:
-        linear-gradient(
-            #080b1a,
-            #080b1a
-        ) padding-box,
-
+        linear-gradient(#080b1a,#080b1a) padding-box,
         linear-gradient(
             90deg,
             var(--primary),
             var(--secondary)
         ) border-box;
 
-    box-shadow:
-        0 0 13px
-        rgba(210, 40, 255, 0.25);
-
-    transition:
-        0.3s ease;
-
+    transition: .3s;
 }
 
 .signin:hover {
-
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 
     box-shadow:
         0 0 22px var(--primary);
-
 }
 
 
@@ -470,53 +282,30 @@ nav a.active::after {
    ===================================================== */
 
 .hero {
+    min-height: calc(100vh - 88px);
 
-    min-height:
-        calc(100vh - 88px);
+    display: flex;
+    justify-content: center;
+    text-align: center;
 
-    display:
-        flex;
+    position: relative;
 
-    align-items:
-        center;
+    overflow: hidden;
 
-    justify-content:
-        center;
-
-    text-align:
-        center;
-
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
-    padding:
-        70px 20px 90px;
+    padding: 90px 20px;
 
     background:
-
         radial-gradient(
             circle at 20% 40%,
-            color-mix(
-                in srgb,
-                var(--primary) 14%,
-                transparent
-            ),
+            rgba(213,44,255,.12),
             transparent 30%
         ),
 
         radial-gradient(
             circle at 80% 50%,
-            color-mix(
-                in srgb,
-                var(--secondary) 13%,
-                transparent
-            ),
+            rgba(49,140,255,.12),
             transparent 30%
         );
-
 }
 
 
@@ -525,34 +314,27 @@ nav a.active::after {
    ===================================================== */
 
 .grid {
+    position: absolute;
 
-    position:
-        absolute;
+    inset: 0;
 
-    inset:
-        0;
+    opacity: .25;
 
-    pointer-events:
-        none;
-
-    opacity:
-        0.25;
+    pointer-events: none;
 
     background-image:
-
         linear-gradient(
-            rgba(150, 100, 255, 0.07) 1px,
+            rgba(150,100,255,.07) 1px,
             transparent 1px
         ),
 
         linear-gradient(
             90deg,
-            rgba(150, 100, 255, 0.07) 1px,
+            rgba(150,100,255,.07) 1px,
             transparent 1px
         );
 
-    background-size:
-        55px 55px;
+    background-size: 55px 55px;
 
     mask-image:
         linear-gradient(
@@ -562,7 +344,6 @@ nav a.active::after {
             black 75%,
             transparent
         );
-
 }
 
 
@@ -571,114 +352,62 @@ nav a.active::after {
    ===================================================== */
 
 .particle {
+    position: absolute;
 
-    position:
-        absolute;
+    width: 3px;
+    height: 3px;
 
-    width:
-        3px;
+    border-radius: 50%;
 
-    height:
-        3px;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--primary);
+    background: var(--primary);
 
     box-shadow:
         0 0 9px var(--primary);
 
     animation:
         floatParticle 5s infinite alternate;
-
 }
 
-.particle.one {
-
-    top:
-        20%;
-
-    left:
-        9%;
-
+.one {
+    top: 20%;
+    left: 9%;
 }
 
-.particle.two {
-
-    top:
-        30%;
-
-    left:
-        22%;
-
-    animation-delay:
-        1s;
-
+.two {
+    top: 30%;
+    left: 22%;
+    animation-delay: 1s;
 }
 
-.particle.three {
-
-    top:
-        18%;
-
-    right:
-        20%;
-
-    animation-delay:
-        2s;
-
+.three {
+    top: 18%;
+    right: 20%;
+    animation-delay: 2s;
 }
 
-.particle.four {
-
-    top:
-        55%;
-
-    right:
-        9%;
-
-    animation-delay:
-        1.5s;
-
+.four {
+    top: 55%;
+    right: 9%;
+    animation-delay: 1.5s;
 }
 
-.particle.five {
-
-    bottom:
-        18%;
-
-    left:
-        17%;
-
-    animation-delay:
-        2.5s;
-
+.five {
+    bottom: 18%;
+    left: 17%;
+    animation-delay: 2.5s;
 }
 
 @keyframes floatParticle {
 
     from {
-
-        transform:
-            translateY(0);
-
-        opacity:
-            0.35;
-
+        transform: translateY(0);
+        opacity: .35;
     }
 
     to {
-
-        transform:
-            translateY(-22px);
-
-        opacity:
-            1;
-
+        transform: translateY(-22px);
+        opacity: 1;
     }
-
 }
 
 
@@ -687,73 +416,42 @@ nav a.active::after {
    ===================================================== */
 
 .hero-content {
+    width: 100%;
+    max-width: 1050px;
 
-    max-width:
-        900px;
-
-    position:
-        relative;
-
-    z-index:
-        5;
-
+    position: relative;
+    z-index: 5;
 }
 
 .small-label {
+    display: inline-block;
 
-    display:
-        inline-block;
+    padding: 8px 16px;
 
-    padding:
-        7px 14px;
+    border-radius: 30px;
 
-    border-radius:
-        30px;
+    border: 1px solid var(--border);
 
-    border:
-        1px solid var(--border);
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    background: rgba(10,12,29,.6);
 
-    background:
-        rgba(10, 12, 29, 0.6);
+    font-size: 13px;
 
-    font-size:
-        13px;
+    letter-spacing: 1.5px;
 
-    letter-spacing:
-        1.5px;
-
-    text-transform:
-        uppercase;
-
-    margin-bottom:
-        24px;
-
+    margin-bottom: 24px;
 }
 
 .hero h1 {
+    font-size: clamp(48px,8vw,82px);
 
-    font-size:
-        clamp(48px, 8vw, 82px);
+    line-height: 1.05;
 
-    line-height:
-        1.05;
-
-    font-weight:
-        800;
-
-    letter-spacing:
-        -2px;
-
-    margin-bottom:
-        20px;
-
+    margin-bottom: 20px;
 }
 
 .gradient-text {
-
     background:
         linear-gradient(
             90deg,
@@ -762,97 +460,86 @@ nav a.active::after {
             var(--secondary)
         );
 
-    -webkit-background-clip:
-        text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
-    -webkit-text-fill-color:
-        transparent;
+    background-size: 200% 200%;
 
-    background-size:
-        200% 200%;
-
-    animation:
-        gradientMove 5s ease infinite;
-
+    animation: gradientMove 5s ease infinite;
 }
 
 @keyframes gradientMove {
 
     0% {
-        background-position:
-            0% 50%;
+        background-position: 0% 50%;
     }
 
     50% {
-        background-position:
-            100% 50%;
+        background-position: 100% 50%;
     }
 
     100% {
-        background-position:
-            0% 50%;
+        background-position: 0% 50%;
     }
-
 }
 
 .hero p {
+    max-width: 650px;
 
-    max-width:
-        650px;
+    margin: 0 auto 30px;
 
-    margin:
-        0 auto 34px;
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    font-size: 19px;
 
-    font-size:
-        19px;
-
-    line-height:
-        1.7;
-
+    line-height: 1.7;
 }
 
 
 /* =====================================================
-   START CHATTING
+   CREATOR
+   ===================================================== */
+
+.creator {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+.creator span {
+    color: var(--primary);
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   START CHAT
    ===================================================== */
 
 .start-chat {
+    display: inline-flex;
 
-    display:
-        inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    align-items:
-        center;
+    gap: 10px;
 
-    justify-content:
-        center;
+    min-width: 180px;
 
-    gap:
-        10px;
+    padding: 14px 25px;
 
-    min-width:
-        180px;
+    border-radius: 10px;
 
-    padding:
-        14px 25px;
+    color: white;
 
-    border-radius:
-        10px;
+    text-decoration: none;
 
-    color:
-        white;
+    font-size: 16px;
 
-    text-decoration:
-        none;
-
-    font-size:
-        16px;
-
-    font-weight:
-        600;
+    font-weight: 600;
 
     background:
         linear-gradient(
@@ -862,31 +549,16 @@ nav a.active::after {
         );
 
     box-shadow:
-        0 0 20px
-        color-mix(
-            in srgb,
-            var(--primary) 30%,
-            transparent
-        );
+        0 0 20px rgba(213,44,255,.3);
 
-    transition:
-        0.3s ease;
-
+    transition: .3s;
 }
 
 .start-chat:hover {
-
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 
     box-shadow:
-        0 0 30px
-        color-mix(
-            in srgb,
-            var(--primary) 55%,
-            transparent
-        );
-
+        0 0 30px var(--primary);
 }
 
 
@@ -895,96 +567,62 @@ nav a.active::after {
    ===================================================== */
 
 .features {
+    width: 100%;
 
-    width:
-        min(1050px, 100%);
+    margin: 65px auto 0;
 
-    margin:
-        65px auto 0;
-
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
-    gap:
-        20px;
-
+    gap: 20px;
 }
 
 .feature-card {
+    padding: 27px 23px;
 
-    padding:
-        27px 23px;
-
-    border-radius:
-        16px;
+    border-radius: 16px;
 
     background:
-        rgba(7, 9, 23, 0.75);
+        rgba(7,9,23,.75);
 
     border:
         1px solid var(--border);
 
     box-shadow:
-        0 0 25px
-        rgba(80, 30, 200, 0.08);
+        0 0 25px rgba(80,30,200,.08);
 
-    transition:
-        0.3s ease;
-
+    transition: .3s;
 }
 
 .feature-card:hover {
+    transform: translateY(-6px);
 
-    transform:
-        translateY(-6px);
-
-    border-color:
-        var(--primary);
+    border-color: var(--primary);
 
     box-shadow:
-        0 0 25px
-        color-mix(
-            in srgb,
-            var(--primary) 18%,
-            transparent
-        );
-
+        0 0 25px rgba(213,44,255,.18);
 }
 
 .feature-icon {
+    font-size: 32px;
 
-    font-size:
-        32px;
-
-    margin-bottom:
-        14px;
-
+    margin-bottom: 14px;
 }
 
 .feature-card h2 {
+    font-size: 19px;
 
-    font-size:
-        19px;
-
-    margin-bottom:
-        9px;
-
+    margin-bottom: 9px;
 }
 
 .feature-card p {
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    font-size: 14px;
 
-    font-size:
-        14px;
-
-    line-height:
-        1.6;
-
+    line-height: 1.6;
 }
 
 
@@ -993,51 +631,34 @@ nav a.active::after {
    ===================================================== */
 
 .coming-soon {
+    width: min(850px,100%);
 
-    width:
-        min(850px, 100%);
+    margin: 65px auto 0;
 
-    margin:
-        65px auto 0;
+    padding: 30px 25px;
 
-    padding:
-        30px 25px;
+    border-radius: 17px;
 
-    border-radius:
-        17px;
+    text-align: center;
 
-    text-align:
-        center;
-
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
     background:
-        rgba(7, 9, 23, 0.7);
-
+        rgba(7,9,23,.7);
 }
 
 .coming-soon h2 {
+    margin-bottom: 10px;
 
-    margin-bottom:
-        10px;
-
-    font-size:
-        24px;
-
+    font-size: 24px;
 }
 
 .coming-soon p {
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    line-height: 1.7;
 
-    line-height:
-        1.7;
-
-    font-size:
-        15px;
-
+    font-size: 15px;
 }
 
 
@@ -1046,418 +667,240 @@ nav a.active::after {
    ===================================================== */
 
 footer {
+    padding: 28px 5% 22px;
 
-    padding:
-        28px 5% 22px;
+    background: #02040c;
 
-    background:
-        #02040c;
+    border-top: 1px solid var(--border);
 
-    border-top:
-        1px solid var(--border);
-
-    text-align:
-        center;
-
+    text-align: center;
 }
 
 footer p {
+    color: #747789;
 
-    color:
-        #747789;
-
-    font-size:
-        14px;
-
+    font-size: 14px;
 }
 
 footer span {
-
-    color:
-        var(--primary);
-
+    color: var(--primary);
 }
 
 
 /* =====================================================
-   CUSTOMIZATION OVERLAY
+   THEME PANEL
    ===================================================== */
 
 .overlay {
+    position: fixed;
 
-    position:
-        fixed;
+    inset: 0;
 
-    inset:
-        0;
+    background: rgba(0,0,0,.5);
 
-    background:
-        rgba(0, 0, 0, 0.48);
+    opacity: 0;
 
-    backdrop-filter:
-        blur(3px);
+    visibility: hidden;
 
-    opacity:
-        0;
+    transition: .3s;
 
-    visibility:
-        hidden;
-
-    transition:
-        opacity 0.3s ease;
-
-    z-index:
-        90;
-
+    z-index: 90;
 }
 
 .overlay.show {
+    opacity: 1;
 
-    opacity:
-        1;
-
-    visibility:
-        visible;
-
+    visibility: visible;
 }
 
-
-/* =====================================================
-   CUSTOMIZATION PANEL
-   ===================================================== */
-
 .custom-panel {
+    position: fixed;
 
-    position:
-        fixed;
+    top: 0;
+    right: 0;
 
-    top:
-        0;
+    width: min(360px,92vw);
 
-    right:
-        0;
+    height: 100vh;
 
-    width:
-        min(360px, 92vw);
+    padding: 28px 25px;
 
-    height:
-        100vh;
+    background: #070917;
 
-    padding:
-        28px 25px;
+    border-left: 1px solid var(--border);
 
-    background:
-        #070917;
+    transform: translateX(105%);
 
-    border-left:
-        1px solid var(--border);
+    transition: .4s;
 
-    box-shadow:
-        -10px 0 40px
-        rgba(0, 0, 0, 0.5);
+    z-index: 100;
 
-    transform:
-        translateX(105%);
-
-    transition:
-        transform 0.4s
-        cubic-bezier(.2,.8,.2,1);
-
-    z-index:
-        100;
-
-    overflow-y:
-        auto;
-
+    overflow-y: auto;
 }
 
 .custom-panel.open {
-
-    transform:
-        translateX(0);
-
+    transform: translateX(0);
 }
 
 
 /* =====================================================
-   PANEL HEADER
+   PANEL
    ===================================================== */
 
 .panel-header {
+    display: flex;
 
-    display:
-        flex;
+    align-items: center;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    padding-bottom: 20px;
 
-    justify-content:
-        space-between;
-
-    padding-bottom:
-        20px;
-
-    margin-bottom:
-        25px;
+    margin-bottom: 25px;
 
     border-bottom:
-        1px solid
-        rgba(130, 100, 255, 0.16);
-
+        1px solid rgba(130,100,255,.16);
 }
 
 .panel-header h2 {
-
-    font-size:
-        22px;
-
+    font-size: 21px;
 }
 
 .close-panel {
+    width: 35px;
+    height: 35px;
 
-    width:
-        35px;
+    border-radius: 9px;
 
-    height:
-        35px;
+    border: 1px solid var(--border);
 
-    border-radius:
-        9px;
+    background: var(--surface);
 
-    border:
-        1px solid var(--border);
+    color: white;
 
-    background:
-        var(--surface);
+    cursor: pointer;
 
-    color:
-        white;
-
-    cursor:
-        pointer;
-
-    font-size:
-        18px;
-
-}
-
-.close-panel:hover {
-
-    border-color:
-        var(--primary);
-
-    color:
-        var(--primary);
-
+    font-size: 18px;
 }
 
 
 /* =====================================================
-   SETTINGS
+   THEME OPTIONS
    ===================================================== */
 
 .setting-section {
-
-    margin-bottom:
-        30px;
-
+    margin-bottom: 30px;
 }
 
 .setting-section h3 {
+    font-size: 15px;
 
-    font-size:
-        15px;
-
-    margin-bottom:
-        6px;
-
+    margin-bottom: 7px;
 }
 
 .setting-description {
+    color: #85889a;
 
-    color:
-        #85889a;
+    font-size: 13px;
 
-    font-size:
-        13px;
+    line-height: 1.5;
 
-    line-height:
-        1.5;
-
-    margin-bottom:
-        14px;
-
+    margin-bottom: 14px;
 }
 
-
-/* =====================================================
-   COLOR OPTIONS
-   ===================================================== */
-
 .color-grid {
-
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
-    gap:
-        10px;
-
+    gap: 10px;
 }
 
 .color-option {
+    min-height: 75px;
 
-    min-height:
-        75px;
-
-    border-radius:
-        12px;
+    border-radius: 12px;
 
     border:
-        1px solid
-        rgba(255,255,255,0.08);
+        1px solid rgba(255,255,255,.08);
 
-    background:
-        var(--surface);
+    background: var(--surface);
 
-    color:
-        white;
+    color: white;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    padding:
-        10px 5px;
+    padding: 10px 5px;
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    gap:
-        7px;
+    gap: 7px;
 
-    transition:
-        0.25s;
-
+    transition: .25s;
 }
 
 .color-option:hover {
+    transform: translateY(-2px);
 
-    transform:
-        translateY(-2px);
-
-    border-color:
-        var(--theme-color);
+    border-color: var(--theme-color);
 
     box-shadow:
-        0 0 14px
-        var(--theme-color);
-
+        0 0 14px var(--theme-color);
 }
 
 .color-circle {
+    width: 24px;
+    height: 24px;
 
-    width:
-        24px;
+    border-radius: 50%;
 
-    height:
-        24px;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--theme-color);
+    background: var(--theme-color);
 
     box-shadow:
-        0 0 12px
-        var(--theme-color);
-
-}
-
-.color-option.selected {
-
-    border-color:
-        var(--theme-color);
-
-    box-shadow:
-        0 0 15px
-        var(--theme-color);
-
+        0 0 12px var(--theme-color);
 }
 
 .color-option span:last-child {
+    font-size: 11px;
 
-    font-size:
-        11px;
-
-    color:
-        #c9cad5;
-
+    color: #c9cad5;
 }
 
 
 /* =====================================================
-   RESET BUTTON
+   RESET
    ===================================================== */
 
 .reset-btn {
+    width: 100%;
 
-    width:
-        100%;
+    padding: 13px;
 
-    padding:
-        13px;
-
-    margin-top:
-        5px;
-
-    border-radius:
-        10px;
+    border-radius: 10px;
 
     border:
         1px solid var(--border);
 
-    background:
-        transparent;
+    background: transparent;
 
-    color:
-        #d6d7df;
+    color: #d6d7df;
 
-    cursor:
-        pointer;
-
-    transition:
-        0.25s;
-
+    cursor: pointer;
 }
 
 .reset-btn:hover {
+    color: white;
 
-    color:
-        white;
-
-    border-color:
-        var(--primary);
+    border-color: var(--primary);
 
     box-shadow:
-        0 0 15px
-        color-mix(
-            in srgb,
-            var(--primary) 20%,
-            transparent
-        );
-
+        0 0 15px var(--primary);
 }
 
 
@@ -1465,185 +908,72 @@ footer span {
    RESPONSIVE
    ===================================================== */
 
-@media (max-width: 1050px) {
-
-    nav {
-        gap:
-            20px;
-    }
-
-    .customize-btn {
-        font-size:
-            14px;
-    }
-
-}
-
-@media (max-width: 850px) {
+@media(max-width:850px) {
 
     header {
+        height: auto;
 
-        height:
-            auto;
+        padding: 16px 20px;
 
-        min-height:
-            80px;
-
-        padding:
-            16px 20px;
-
-        flex-wrap:
-            wrap;
-
+        flex-wrap: wrap;
     }
 
     nav {
+        order: 3;
 
-        order:
-            3;
+        width: 100%;
 
-        width:
-            100%;
+        justify-content: center;
 
-        justify-content:
-            center;
-
-        flex-wrap:
-            wrap;
-
-        padding-top:
-            4px;
-
-    }
-
-    nav a.active::after {
-
-        bottom:
-            -7px;
-
+        flex-wrap: wrap;
     }
 
     .features {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
-
-    .hero {
-
-        padding-top:
-            55px;
-
-    }
-
 }
 
-@media (max-width: 550px) {
-
-    header {
-
-        gap:
-            12px;
-
-    }
+@media(max-width:550px) {
 
     .logo {
-
-        font-size:
-            23px;
-
+        font-size: 23px;
     }
 
     .logo-icon {
-
-        width:
-            40px;
-
-        height:
-            37px;
-
+        width: 40px;
+        height: 37px;
     }
 
     .customize-btn {
-
-        padding:
-            9px 10px;
-
-        font-size:
-            0;
-
+        font-size: 0;
     }
 
     .customize-btn::before {
+        content: "🎨";
 
-        content:
-            "🎨";
-
-        font-size:
-            18px;
-
+        font-size: 18px;
     }
 
     .signin {
+        padding: 9px 13px;
 
-        padding:
-            9px 13px;
-
-        font-size:
-            13px;
-
+        font-size: 13px;
     }
 
     nav {
-
-        gap:
-            16px;
-
+        gap: 16px;
     }
 
     nav a {
-
-        font-size:
-            14px;
-
-    }
-
-    .hero h1 {
-
-        letter-spacing:
-            -1px;
-
+        font-size: 14px;
     }
 
     .hero p {
-
-        font-size:
-            16px;
-
+        font-size: 16px;
     }
-
-    .start-chat {
-
-        min-width:
-            165px;
-
-        padding:
-            13px 20px;
-
-    }
-
-    .custom-panel {
-
-        width:
-            min(350px, 94vw);
-
-    }
-
 }
 
 </style>
-
 </head>
 
 
@@ -1701,7 +1031,7 @@ footer span {
             href="signin.html"
             class="signin">
 
-            Sign In
+            👤 Sign In
 
         </a>
 
@@ -1710,27 +1040,20 @@ footer span {
 </header>
 
 
-
 <!-- =====================================================
-     HERO
+     HOME
      ===================================================== -->
 
 <main>
 
 <section class="hero">
 
-
     <div class="grid"></div>
 
-
     <div class="particle one"></div>
-
     <div class="particle two"></div>
-
     <div class="particle three"></div>
-
     <div class="particle four"></div>
-
     <div class="particle five"></div>
 
 
@@ -1747,6 +1070,7 @@ footer span {
         <h1>
 
             Welcome to
+
             <br>
 
             <span class="gradient-text">
@@ -1766,6 +1090,16 @@ footer span {
         </p>
 
 
+        <!-- CREATOR NAME -->
+
+        <div class="creator">
+
+            Created by
+            <span>Dev</span>
+
+        </div>
+
+
         <a
             href="chat.html"
             class="start-chat">
@@ -1774,6 +1108,8 @@ footer span {
 
         </a>
 
+
+        <!-- FEATURES -->
 
         <div class="features">
 
@@ -1840,7 +1176,6 @@ footer span {
 
             </div>
 
-
         </div>
 
 
@@ -1869,27 +1204,29 @@ footer span {
 </main>
 
 
-
 <!-- =====================================================
      FOOTER
      ===================================================== -->
 
 <footer>
 
-    <p>
+<p>
 
-        © 2026
-        <span>Render0X</span>.
-        All rights reserved.
+© 2026
+<span>Render0X</span>.
+All rights reserved.
 
-        &nbsp; • &nbsp;
+&nbsp; • &nbsp;
 
-        Connect. Chat. Play. Together.
+Connect. Chat. Play. Together.
 
-    </p>
+&nbsp; • &nbsp;
+
+Created by <span>Dev</span>
+
+</p>
 
 </footer>
-
 
 
 <!-- =====================================================
@@ -1900,7 +1237,6 @@ footer span {
     class="overlay"
     id="overlay">
 </div>
-
 
 
 <!-- =====================================================
@@ -1937,8 +1273,9 @@ footer span {
 
         <p class="setting-description">
 
-            Choose the color of the
-            Render0X neon interface.
+            Choose your Render0X neon
+            theme. Your choice will be
+            saved for the website.
 
         </p>
 
@@ -1953,9 +1290,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Purple
-                </span>
+                <span>Purple</span>
 
             </button>
 
@@ -1967,9 +1302,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Blue
-                </span>
+                <span>Blue</span>
 
             </button>
 
@@ -1981,9 +1314,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Green
-                </span>
+                <span>Green</span>
 
             </button>
 
@@ -1995,9 +1326,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Red
-                </span>
+                <span>Red</span>
 
             </button>
 
@@ -2009,9 +1338,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Orange
-                </span>
+                <span>Orange</span>
 
             </button>
 
@@ -2023,9 +1350,7 @@ footer span {
 
                 <span class="color-circle"></span>
 
-                <span>
-                    Pink
-                </span>
+                <span>Pink</span>
 
             </button>
 
@@ -2043,9 +1368,7 @@ footer span {
 
     </button>
 
-
 </aside>
-
 
 
 <!-- =====================================================
@@ -2054,78 +1377,113 @@ footer span {
 
 <script>
 
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const root =
+    document.documentElement;
+
+const panel =
+    document.getElementById(
+        "customPanel"
+    );
+
+const overlay =
+    document.getElementById(
+        "overlay"
+    );
+
+const openButton =
+    document.getElementById(
+        "openCustomize"
+    );
+
+const closeButton =
+    document.getElementById(
+        "closeCustomize"
+    );
+
 
 /* =====================================================
-   THEME DEFINITIONS
+   THEMES
    ===================================================== */
 
 const themes = {
 
     purple: {
-
-        primary:
-            "#d52cff",
-
-        secondary:
-            "#318cff"
-
+        primary: "#d52cff",
+        secondary: "#318cff"
     },
 
     blue: {
-
-        primary:
-            "#00b7ff",
-
-        secondary:
-            "#3867ff"
-
+        primary: "#00b7ff",
+        secondary: "#3867ff"
     },
 
     green: {
-
-        primary:
-            "#00e676",
-
-        secondary:
-            "#00bfa5"
-
+        primary: "#00e676",
+        secondary: "#00bfa5"
     },
 
     red: {
-
-        primary:
-            "#ff315c",
-
-        secondary:
-            "#ff1744"
-
+        primary: "#ff315c",
+        secondary: "#ff1744"
     },
 
     orange: {
-
-        primary:
-            "#ff8a00",
-
-        secondary:
-            "#ff3d00"
-
+        primary: "#ff8a00",
+        secondary: "#ff3d00"
     },
 
     pink: {
-
-        primary:
-            "#ff4fcf",
-
-        secondary:
-            "#9c4dff"
-
+        primary: "#ff4fcf",
+        secondary: "#9c4dff"
     }
 
 };
 
 
-const root =
-    document.documentElement;
+/* =====================================================
+   OPEN
+   ===================================================== */
+
+function openPanel() {
+
+    panel.classList.add("open");
+
+    overlay.classList.add("show");
+
+}
+
+
+/* =====================================================
+   CLOSE
+   ===================================================== */
+
+function closePanel() {
+
+    panel.classList.remove("open");
+
+    overlay.classList.remove("show");
+
+}
+
+
+openButton.addEventListener(
+    "click",
+    openPanel
+);
+
+closeButton.addEventListener(
+    "click",
+    closePanel
+);
+
+overlay.addEventListener(
+    "click",
+    closePanel
+);
 
 
 /* =====================================================
@@ -2145,7 +1503,6 @@ function applyTheme(themeName) {
         theme.primary
     );
 
-
     root.style.setProperty(
         "--secondary",
         theme.secondary
@@ -2153,10 +1510,11 @@ function applyTheme(themeName) {
 
 
     /*
-       Save the theme.
+       SAVE THEME
 
-       This is what allows other pages
-       to use the same selected theme.
+       This is the important part.
+       Every page on the same website
+       can read this saved value.
     */
 
     localStorage.setItem(
@@ -2164,150 +1522,29 @@ function applyTheme(themeName) {
         themeName
     );
 
-
-    updateSelectedTheme(
-        themeName
-    );
-
 }
 
 
 /* =====================================================
-   SELECTED THEME
-   ===================================================== */
-
-function updateSelectedTheme(themeName) {
-
-    document
-        .querySelectorAll(
-            ".color-option"
-        )
-        .forEach(button => {
-
-            button.classList.toggle(
-                "selected",
-                button.dataset.theme ===
-                themeName
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   COLOR BUTTONS
+   THEME BUTTONS
    ===================================================== */
 
 document
-    .querySelectorAll(
-        "[data-theme]"
-    )
-    .forEach(button => {
+.querySelectorAll("[data-theme]")
+.forEach(button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-                applyTheme(
-                    button.dataset.theme
-                );
+            applyTheme(
+                button.dataset.theme
+            );
 
-            }
-        );
-
-    });
-
-
-/* =====================================================
-   LOAD SAVED THEME
-   ===================================================== */
-
-const savedTheme =
-    localStorage.getItem(
-        "render0x-theme"
-    ) || "purple";
-
-
-applyTheme(
-    savedTheme
-);
-
-
-/* =====================================================
-   OPEN CUSTOMIZATION
-   ===================================================== */
-
-const openCustomize =
-    document.getElementById(
-        "openCustomize"
+        }
     );
 
-const closeCustomize =
-    document.getElementById(
-        "closeCustomize"
-    );
-
-const customPanel =
-    document.getElementById(
-        "customPanel"
-    );
-
-const overlay =
-    document.getElementById(
-        "overlay"
-    );
-
-
-openCustomize.addEventListener(
-    "click",
-    () => {
-
-        customPanel.classList.add(
-            "open"
-        );
-
-        overlay.classList.add(
-            "show"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-);
-
-
-/* =====================================================
-   CLOSE CUSTOMIZATION
-   ===================================================== */
-
-function closePanel() {
-
-    customPanel.classList.remove(
-        "open"
-    );
-
-    overlay.classList.remove(
-        "show"
-    );
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-closeCustomize.addEventListener(
-    "click",
-    closePanel
-);
-
-
-overlay.addEventListener(
-    "click",
-    closePanel
-);
+});
 
 
 /* =====================================================
@@ -2315,32 +1552,46 @@ overlay.addEventListener(
    ===================================================== */
 
 document
-    .getElementById(
-        "resetTheme"
-    )
-    .addEventListener(
-        "click",
-        () => {
+.getElementById("resetTheme")
+.addEventListener(
+    "click",
+    () => {
 
-            applyTheme(
-                "purple"
-            );
+        applyTheme("purple");
 
-        }
-    );
+    }
+);
 
 
 /* =====================================================
-   ESCAPE KEY
+   LOAD SAVED THEME
+   ===================================================== */
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem(
+            "render0x-theme"
+        ) || "purple";
+
+
+    applyTheme(savedTheme);
+
+}
+
+
+loadTheme();
+
+
+/* =====================================================
+   ESCAPE
    ===================================================== */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key === "Escape"
-        ) {
+        if (event.key === "Escape") {
 
             closePanel();
 
@@ -2351,7 +1602,5 @@ document.addEventListener(
 
 </script>
 
-
 </body>
-
 </html>
