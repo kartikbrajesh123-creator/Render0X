@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,935 +10,1398 @@
 
 <style>
 
+/* =====================================================
+   RENDER0X INFO PAGE
+   SHARED THEME SYSTEM
+   ===================================================== */
+
+:root {
+    --primary: #d52cff;
+    --secondary: #318cff;
+
+    --background: #030510;
+    --surface: #080b1a;
+    --surface2: #0b0e20;
+
+    --text: #ffffff;
+    --muted: #b8bac8;
+
+    --border: rgba(140, 65, 255, 0.35);
+}
+
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #030510;
-    color: white;
-    min-height: 100vh;
-    overflow-x: hidden;
+html {
+    scroll-behavior: smooth;
 }
 
-/* ================= HEADER ================= */
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    transition:
+        background .4s ease,
+        color .4s ease;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
 
 header {
-    height: 90px;
+
+    height: 88px;
+
     padding: 0 4%;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    background: rgba(3,5,16,.96);
-    border-bottom: 1px solid rgba(120,90,255,.18);
+    gap: 25px;
+
+    background:
+        rgba(3,5,16,.94);
+
+    border-bottom:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(12px);
 
     position: relative;
+
     z-index: 20;
 }
 
-/* LOGO */
+
+/* =====================================================
+   LOGO
+   ===================================================== */
 
 .logo {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
-    text-decoration: none;
     color: white;
 
-    font-size: 30px;
+    text-decoration: none;
+
+    font-size: 29px;
+
     font-weight: 700;
 }
 
 .logo-icon {
-    width: 48px;
+
+    width: 47px;
+
     height: 42px;
 
-    border: 3px solid #d52cff;
-    border-right-color: #318cff;
+    border:
+        3px solid var(--primary);
+
+    border-right-color:
+        var(--secondary);
 
     border-radius: 14px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     position: relative;
 
     box-shadow:
-        0 0 12px #a92cff,
-        0 0 20px rgba(45,120,255,.35);
+        0 0 12px var(--primary),
+        0 0 25px var(--secondary);
 }
 
 .logo-icon::before {
+
     content: "•••";
 
-    color: #9b50ff;
+    color:
+        var(--primary);
 
     font-size: 18px;
+
     letter-spacing: 3px;
 }
 
 .logo-icon::after {
+
     content: "";
 
     position: absolute;
 
     bottom: -8px;
+
     left: 7px;
 
     width: 12px;
+
     height: 12px;
 
-    border-left: 3px solid #d52cff;
+    border-left:
+        3px solid var(--primary);
 
-    transform: skew(-25deg);
+    transform:
+        skew(-25deg);
 }
 
 .logo span {
+
     background:
         linear-gradient(
             90deg,
-            white 45%,
-            #a13cff 70%,
-            #318cff
+            white,
+            var(--primary),
+            var(--secondary)
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
 }
 
-/* NAV */
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
 
 nav {
+
     display: flex;
+
+    gap: 34px;
+
     align-items: center;
-    gap: 42px;
 }
 
 nav a {
-    color: #eeeeee;
+
+    color:
+        #eeeeee;
 
     text-decoration: none;
 
-    font-size: 17px;
+    font-size: 16px;
 
     position: relative;
 
-    transition: .25s;
+    transition:
+        .3s;
 }
 
 nav a:hover {
-    color: #b84cff;
+
+    color:
+        var(--primary);
+}
+
+nav a.active {
+
+    color:
+        white;
 }
 
 nav a.active::after {
+
     content: "";
 
     position: absolute;
 
     left: 0;
+
     right: 0;
-    bottom: -14px;
+
+    bottom: -13px;
 
     height: 2px;
 
     background:
         linear-gradient(
             90deg,
-            #e02cff,
-            #338cff
+            var(--primary),
+            var(--secondary)
         );
 
     box-shadow:
-        0 0 8px #a934ff;
+        0 0 10px var(--primary);
 }
 
-/* SIGN IN */
 
-.signin {
-    padding: 12px 24px;
+/* =====================================================
+   HEADER RIGHT
+   ===================================================== */
 
-    border-radius: 9px;
+.header-right {
 
-    color: white;
+    display: flex;
 
-    text-decoration: none;
+    align-items: center;
 
-    border: 2px solid transparent;
+    gap: 12px;
+}
+
+
+/* =====================================================
+   THEME BUTTON
+   ===================================================== */
+
+.theme-btn {
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        9px;
+
+    border:
+        1px solid var(--border);
 
     background:
-        linear-gradient(#080b1a,#080b1a) padding-box,
-        linear-gradient(90deg,#ed27ff,#348cff) border-box;
+        rgba(10,12,29,.9);
+
+    color:
+        white;
+
+    cursor:
+        pointer;
+
+    font-size:
+        14px;
+
+    transition:
+        .3s;
+}
+
+.theme-btn:hover {
+
+    border-color:
+        var(--primary);
 
     box-shadow:
-        0 0 13px rgba(210,40,255,.3);
+        0 0 16px var(--primary);
 
-    transition: .25s;
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   SIGN IN
+   ===================================================== */
+
+.signin {
+
+    padding:
+        11px 21px;
+
+    border-radius:
+        9px;
+
+    color:
+        white;
+
+    text-decoration:
+        none;
+
+    border:
+        2px solid transparent;
+
+    background:
+
+        linear-gradient(
+            var(--surface),
+            var(--surface)
+        ) padding-box,
+
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        ) border-box;
+
+    transition:
+        .3s;
 }
 
 .signin:hover {
-    transform: translateY(-2px);
+
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 0 25px rgba(210,40,255,.45);
+        0 0 22px var(--primary);
 }
 
 
-/* ================= MAIN ================= */
+/* =====================================================
+   MAIN
+   ===================================================== */
 
 main {
-    min-height: calc(100vh - 90px);
 
-    padding: 45px 20px 70px;
+    min-height:
+        calc(100vh - 160px);
 
-    position: relative;
+    padding:
+        70px 20px 80px;
 
-    overflow: hidden;
+    position:
+        relative;
+
+    overflow:
+        hidden;
 
     background:
+
         radial-gradient(
-            circle at 20% 40%,
-            rgba(120,0,255,.12),
+            circle at 15% 40%,
+            rgba(213,44,255,.08),
             transparent 30%
         ),
+
         radial-gradient(
-            circle at 80% 50%,
-            rgba(0,100,255,.12),
+            circle at 85% 60%,
+            rgba(49,140,255,.08),
             transparent 30%
         );
 }
 
 
-/* ================= PARTICLES ================= */
+/* =====================================================
+   GRID
+   ===================================================== */
 
-.particle {
+main::before {
+
+    content: "";
+
     position: absolute;
 
-    width: 3px;
-    height: 3px;
+    inset: 0;
 
-    border-radius: 50%;
+    pointer-events: none;
 
-    background: #a638ff;
+    opacity: .22;
+
+    background-image:
+
+        linear-gradient(
+            rgba(150,100,255,.07) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(150,100,255,.07) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 20%,
+            black 80%,
+            transparent
+        );
+}
+
+
+/* =====================================================
+   PARTICLES
+   ===================================================== */
+
+.particle {
+
+    position:
+        absolute;
+
+    width:
+        4px;
+
+    height:
+        4px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--primary);
 
     box-shadow:
-        0 0 8px #a638ff;
+        0 0 12px var(--primary);
 
-    animation: floating 4s infinite alternate;
+    animation:
+        float 5s infinite alternate;
 }
 
 .p1 {
-    top: 20%;
+    top: 18%;
     left: 8%;
 }
 
 .p2 {
-    top: 30%;
-    left: 25%;
+    top: 35%;
+    left: 20%;
     animation-delay: 1s;
 }
 
 .p3 {
-    top: 18%;
-    right: 22%;
+    top: 20%;
+    right: 15%;
     animation-delay: 2s;
 }
 
 .p4 {
-    top: 45%;
+    top: 55%;
     right: 8%;
     animation-delay: 1.5s;
 }
 
 .p5 {
-    bottom: 20%;
-    left: 18%;
+    bottom: 18%;
+    left: 14%;
     animation-delay: 2.5s;
 }
 
-@keyframes floating {
+@keyframes float {
 
     from {
-        transform: translateY(0);
-        opacity: .4;
+        transform:
+            translateY(0);
+        opacity:
+            .3;
     }
 
     to {
-        transform: translateY(-18px);
-        opacity: 1;
+        transform:
+            translateY(-25px);
+        opacity:
+            1;
     }
 }
 
 
-/* ================= TITLE ================= */
+/* =====================================================
+   TITLE
+   ===================================================== */
 
 .page-title {
-    text-align: center;
 
-    position: relative;
+    text-align:
+        center;
 
-    z-index: 2;
+    position:
+        relative;
 
-    margin-bottom: 20px;
+    z-index:
+        2;
+
+    margin-bottom:
+        55px;
 }
 
 .page-title h1 {
-    font-size: 56px;
 
-    font-weight: 800;
+    font-size:
+        clamp(40px, 6vw, 65px);
+
+    margin-bottom:
+        12px;
+}
+
+.page-title h1 span {
 
     background:
         linear-gradient(
             90deg,
-            #d82cff,
+            var(--primary),
             #7950ff,
-            #318cff
+            var(--secondary)
         );
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    -webkit-background-clip:
+        text;
 
-.page-title h1 span {
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color:
+        transparent;
 }
 
 .page-title p {
-    margin-top: 10px;
 
-    font-size: 20px;
+    color:
+        var(--muted);
 
-    color: #b8bac8;
+    font-size:
+        17px;
 }
 
 
-/* ================= CAROUSEL ================= */
+/* =====================================================
+   CAROUSEL
+   ===================================================== */
 
 .carousel {
-    width: min(1100px,100%);
 
-    height: 590px;
+    width:
+        min(1050px, 100%);
 
-    margin: auto;
+    height:
+        470px;
 
-    position: relative;
+    margin:
+        auto;
 
-    display: flex;
+    position:
+        relative;
 
-    justify-content: center;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    perspective: 1200px;
+    justify-content:
+        center;
+
+    perspective:
+        1200px;
+
+    z-index:
+        5;
 }
 
 
-/* ================= CARD ================= */
+/* =====================================================
+   CARD
+   ===================================================== */
 
 .card {
-    width: 430px;
-    height: 530px;
 
-    position: absolute;
+    width:
+        470px;
 
-    perspective: 1200px;
+    height:
+        390px;
+
+    position:
+        absolute;
 
     transition:
-        transform .7s ease,
-        opacity .7s ease,
-        filter .7s ease;
+        transform .6s ease,
+        opacity .6s ease,
+        filter .6s ease;
+
+    cursor:
+        pointer;
 }
-
-
-/* CARD POSITIONS */
-
-.card.front {
-    transform:
-        translateX(0)
-        scale(1);
-
-    opacity: 1;
-
-    z-index: 10;
-}
-
-.card.left {
-    transform:
-        translateX(-290px)
-        scale(.86);
-
-    opacity: .6;
-
-    filter: brightness(.65);
-
-    z-index: 3;
-}
-
-.card.right {
-    transform:
-        translateX(290px)
-        scale(.86);
-
-    opacity: .6;
-
-    filter: brightness(.65);
-
-    z-index: 3;
-}
-
-
-/* ================= CARD INNER ================= */
 
 .card-inner {
 
-    width: 100%;
-    height: 100%;
+    width:
+        100%;
 
-    position: relative;
+    height:
+        100%;
+
+    position:
+        relative;
 
     transition:
-        transform .8s cubic-bezier(.4,.2,.2,1);
+        transform .7s;
 
-    transform-style: preserve-3d;
-
-    cursor: pointer;
+    transform-style:
+        preserve-3d;
 }
 
 
-/* FLIPPED */
+/* =====================================================
+   CARD POSITIONS
+   ===================================================== */
 
-.card.flipped .card-inner {
-    transform: rotateY(180deg);
+.card.front {
+
+    transform:
+        translateX(0)
+        translateZ(100px)
+        scale(1);
+
+    z-index:
+        5;
+
+    opacity:
+        1;
+}
+
+.card.left {
+
+    transform:
+        translateX(-300px)
+        translateZ(-100px)
+        scale(.82)
+        rotateY(10deg);
+
+    z-index:
+        2;
+
+    opacity:
+        .55;
+
+    filter:
+        brightness(.7);
+}
+
+.card.right {
+
+    transform:
+        translateX(300px)
+        translateZ(-100px)
+        scale(.82)
+        rotateY(-10deg);
+
+    z-index:
+        2;
+
+    opacity:
+        .55;
+
+    filter:
+        brightness(.7);
 }
 
 
-/* ================= FRONT + BACK ================= */
+/* =====================================================
+   CARD FRONT + BACK
+   ===================================================== */
 
 .card-front,
 .card-back {
 
-    width: 100%;
-    height: 100%;
+    position:
+        absolute;
 
-    position: absolute;
+    inset:
+        0;
 
-    backface-visibility: hidden;
+    padding:
+        35px;
 
-    border-radius: 20px;
+    border-radius:
+        22px;
 
-    padding: 45px 38px;
-
-    text-align: center;
+    border:
+        1px solid var(--border);
 
     background:
         linear-gradient(
             145deg,
-            rgba(13,10,31,.98),
-            rgba(5,10,25,.98)
+            rgba(12,15,35,.97),
+            rgba(5,7,20,.97)
         );
 
-    border: 1px solid rgba(140,65,255,.4);
-
     box-shadow:
-        0 0 30px rgba(100,30,255,.15);
+        0 0 35px
+        rgba(70,20,180,.18);
 
-    display: flex;
+    backface-visibility:
+        hidden;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    align-items: center;
+    flex-direction:
+        column;
 
-    justify-content: center;
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    text-align:
+        center;
 }
-
-
-/* FRONT */
-
-.card.front .card-front {
-
-    border-color: #d32cff;
-
-    box-shadow:
-        0 0 25px rgba(190,40,255,.25),
-        0 0 50px rgba(40,100,255,.12);
-}
-
-
-/* BACK */
 
 .card-back {
 
-    transform: rotateY(180deg);
-
-    border-color: #318cff;
+    transform:
+        rotateY(180deg);
 
     background:
         linear-gradient(
             145deg,
-            rgba(15,7,35,.98),
-            rgba(4,12,30,.98)
+            rgba(9,12,29,.99),
+            rgba(4,6,17,.99)
         );
 }
 
 
-/* ================= ICON ================= */
+/* =====================================================
+   CARD FLIP
+   ===================================================== */
 
-.card-icon {
+.card.flipped .card-inner {
 
-    width: 95px;
-    height: 95px;
-
-    margin-bottom: 25px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 45px;
-
-    border: 2px solid #a33dff;
-
-    background:
-        rgba(100,40,255,.06);
-
-    box-shadow:
-        0 0 25px rgba(160,40,255,.2);
+    transform:
+        rotateY(180deg);
 }
 
 
-/* ================= CARD TEXT ================= */
+/* =====================================================
+   CARD CONTENT
+   ===================================================== */
+
+.card-icon {
+
+    font-size:
+        48px;
+
+    margin-bottom:
+        15px;
+
+    filter:
+        drop-shadow(
+            0 0 10px var(--primary)
+        );
+}
 
 .card h2 {
 
-    font-size: 30px;
+    font-size:
+        28px;
 
-    margin-bottom: 15px;
+    margin-bottom:
+        15px;
 }
 
 .card h3 {
 
-    color: #bd54ff;
+    color:
+        var(--primary);
 
-    margin-bottom: 20px;
+    margin-bottom:
+        14px;
 
-    font-size: 18px;
-}
-
-.card h2::after {
-
-    content: "";
-
-    display: block;
-
-    width: 65px;
-    height: 3px;
-
-    margin: 12px auto;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #dd28ff,
-            #318cff
-        );
-
-    box-shadow:
-        0 0 8px #8d3cff;
+    font-size:
+        17px;
 }
 
 .card p {
 
-    color: #b6b8c8;
+    color:
+        var(--muted);
 
-    font-size: 16px;
+    line-height:
+        1.7;
 
-    line-height: 1.75;
+    font-size:
+        15px;
+
+    max-width:
+        370px;
 }
 
 
-/* FEATURES */
+/* =====================================================
+   HIGHLIGHT
+   ===================================================== */
+
+.highlight {
+
+    margin-top:
+        22px;
+
+    padding:
+        10px 18px;
+
+    border-radius:
+        30px;
+
+    border:
+        1px solid var(--border);
+
+    color:
+        var(--primary);
+
+    background:
+        rgba(213,44,255,.06);
+
+    font-size:
+        13px;
+}
+
+
+/* =====================================================
+   BACK FEATURES
+   ===================================================== */
 
 .features {
 
-    margin-top: 22px;
+    display:
+        flex;
 
-    text-align: left;
+    flex-direction:
+        column;
 
-    width: 100%;
+    gap:
+        10px;
+
+    margin-top:
+        12px;
+
+    width:
+        100%;
 }
 
 .features div {
 
-    margin: 11px 0;
+    padding:
+        9px;
 
-    color: #c4c5d3;
+    border-radius:
+        8px;
 
-    font-size: 15px;
-}
+    background:
+        rgba(255,255,255,.035);
 
-.features div::first-letter {
-    color: #c13cff;
-}
+    border:
+        1px solid
+        rgba(255,255,255,.06);
 
+    color:
+        #d7d8e2;
 
-/* HIGHLIGHT */
-
-.highlight {
-
-    margin-top: 25px;
-
-    color: #bd4cff;
-
-    font-weight: bold;
-
-    font-size: 16px;
+    font-size:
+        13px;
 }
 
 
-/* ================= ARROWS ================= */
+/* =====================================================
+   ARROWS
+   ===================================================== */
 
 .arrow {
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 58px;
-    height: 58px;
+    top:
+        50%;
 
-    border-radius: 50%;
+    transform:
+        translateY(-50%);
 
-    display: flex;
+    width:
+        48px;
 
-    align-items: center;
-    justify-content: center;
+    height:
+        48px;
 
-    font-size: 35px;
+    border-radius:
+        50%;
 
-    color: white;
-
-    cursor: pointer;
-
-    border: 1px solid #9c43ff;
+    border:
+        1px solid var(--border);
 
     background:
-        rgba(25,10,55,.85);
+        rgba(7,9,23,.9);
 
-    box-shadow:
-        0 0 15px rgba(150,40,255,.35);
+    color:
+        white;
 
-    z-index: 15;
+    font-size:
+        35px;
 
-    transition: .25s;
+    line-height:
+        40px;
+
+    cursor:
+        pointer;
+
+    z-index:
+        10;
+
+    transition:
+        .3s;
 }
 
 .arrow:hover {
 
-    transform: scale(1.1);
+    border-color:
+        var(--primary);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(130,30,255,.5),
-            rgba(30,110,255,.35)
-        );
+    color:
+        var(--primary);
 
     box-shadow:
-        0 0 25px rgba(160,40,255,.55);
+        0 0 20px var(--primary);
+
+    transform:
+        translateY(-50%) scale(1.08);
 }
 
 .left-arrow {
-    left: 0;
+
+    left:
+        2%;
 }
 
 .right-arrow {
-    right: 0;
+
+    right:
+        2%;
 }
 
 
-/* ================= DOTS ================= */
+/* =====================================================
+   DOTS
+   ===================================================== */
 
 .dots {
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: center;
+    justify-content:
+        center;
 
-    gap: 14px;
+    gap:
+        10px;
 
-    position: relative;
+    margin-top:
+        20px;
 
-    z-index: 20;
+    position:
+        relative;
 
-    margin-top: -15px;
+    z-index:
+        5;
 }
 
 .dot {
 
-    width: 13px;
-    height: 13px;
+    width:
+        9px;
 
-    border-radius: 50%;
+    height:
+        9px;
 
-    background: #676b80;
+    border-radius:
+        50%;
 
-    cursor: pointer;
+    background:
+        #444758;
 
-    transition: .3s;
+    cursor:
+        pointer;
+
+    transition:
+        .3s;
 }
 
 .dot.active {
 
-    background: #c52cff;
+    width:
+        28px;
+
+    border-radius:
+        10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
 
     box-shadow:
-        0 0 12px #c52cff;
-
-    transform: scale(1.15);
+        0 0 10px var(--primary);
 }
 
 
-/* ================= INFO BAR ================= */
+/* =====================================================
+   INFO BAR
+   ===================================================== */
 
 .info-bar {
 
-    width: min(1050px,100%);
+    width:
+        min(950px, 100%);
 
-    margin: 35px auto 0;
+    margin:
+        55px auto 0;
 
-    padding: 22px 35px;
-
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+        repeat(4, 1fr);
 
-    gap: 20px;
+    border:
+        1px solid var(--border);
 
-    border-radius: 15px;
+    border-radius:
+        16px;
 
-    border: 1px solid rgba(130,70,255,.3);
+    overflow:
+        hidden;
 
     background:
-        rgba(7,9,23,.8);
+        rgba(7,9,23,.7);
 
-    box-shadow:
-        0 0 25px rgba(80,30,200,.08);
+    position:
+        relative;
+
+    z-index:
+        5;
 }
 
 .info-item {
 
-    text-align: center;
+    padding:
+        20px 10px;
+
+    text-align:
+        center;
 
     border-right:
-        1px solid rgba(130,100,255,.18);
+        1px solid
+        rgba(140,65,255,.18);
 }
 
 .info-item:last-child {
-    border-right: none;
+
+    border-right:
+        none;
 }
 
 .info-item .big {
 
-    display: block;
+    display:
+        block;
 
-    color: #b94cff;
+    font-weight:
+        600;
 
-    font-size: 18px;
-
-    margin-bottom: 6px;
+    margin-bottom:
+        6px;
 }
 
 .info-item .small {
 
-    color: #a1a4b4;
+    color:
+        var(--muted);
 
-    font-size: 14px;
+    font-size:
+        12px;
 }
 
 
-/* ================= FOOTER ================= */
+/* =====================================================
+   THEME NOTE
+   ===================================================== */
+
+.theme-note {
+
+    text-align:
+        center;
+
+    margin-top:
+        28px;
+
+    color:
+        #777b90;
+
+    font-size:
+        12px;
+
+    position:
+        relative;
+
+    z-index:
+        5;
+}
+
+.theme-note span {
+
+    color:
+        var(--primary);
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
 
 footer {
 
-    padding: 28px 5% 20px;
+    padding:
+        28px 5%;
 
-    background: #02040c;
+    text-align:
+        center;
+
+    background:
+        #02040c;
 
     border-top:
-        1px solid rgba(120,90,255,.18);
-
-    text-align: center;
+        1px solid var(--border);
 }
 
 footer p {
 
-    color: #747789;
+    color:
+        #747789;
 
-    font-size: 14px;
+    font-size:
+        14px;
 }
 
 footer span {
-    color: #a947ff;
+
+    color:
+        var(--primary);
 }
 
 
-/* ================= MOBILE ================= */
+/* =====================================================
+   MOBILE
+   ===================================================== */
 
-@media(max-width:900px) {
-
-    nav {
-        gap: 20px;
-    }
-
-    .card.left {
-        transform:
-            translateX(-210px)
-            scale(.78);
-    }
-
-    .card.right {
-        transform:
-            translateX(210px)
-            scale(.78);
-    }
-}
-
-
-@media(max-width:700px) {
+@media (max-width: 850px) {
 
     header {
 
-        height: auto;
+        height:
+            auto;
 
-        padding: 18px 20px;
+        padding:
+            15px 20px;
 
-        flex-wrap: wrap;
-
-        gap: 18px;
+        flex-wrap:
+            wrap;
     }
 
     nav {
 
-        order: 3;
+        order:
+            3;
 
-        width: 100%;
+        width:
+            100%;
 
-        justify-content: center;
+        justify-content:
+            center;
 
-        flex-wrap: wrap;
+        flex-wrap:
+            wrap;
 
-        gap: 20px;
-    }
-
-    .logo {
-        font-size: 24px;
-    }
-
-    .signin {
-
-        font-size: 14px;
-
-        padding: 9px 15px;
-    }
-
-    .page-title h1 {
-        font-size: 40px;
-    }
-
-    .page-title p {
-        font-size: 16px;
+        gap:
+            18px;
     }
 
     .carousel {
-        height: 530px;
+
+        height:
+            450px;
     }
 
     .card {
-        width: min(390px,80vw);
-        height: 490px;
+
+        width:
+            min(430px, 82vw);
     }
 
-    .card.left,
-    .card.right {
-
-        opacity: 0;
+    .card.left {
 
         transform:
-            translateX(0)
+            translateX(-120px)
             scale(.75);
     }
 
-    .arrow {
-        width: 48px;
-        height: 48px;
-        font-size: 28px;
+    .card.right {
+
+        transform:
+            translateX(120px)
+            scale(.75);
     }
 
     .info-bar {
 
         grid-template-columns:
-            1fr 1fr;
+            repeat(2,1fr);
     }
 
     .info-item:nth-child(2) {
-        border-right: none;
+
+        border-right:
+            none;
+    }
+
+    .info-item:nth-child(1),
+    .info-item:nth-child(2) {
+
+        border-bottom:
+            1px solid
+            rgba(140,65,255,.18);
     }
 }
 
 
-@media(max-width:450px) {
+@media (max-width: 550px) {
 
-    .page-title h1 {
-        font-size: 34px;
+    .logo {
+
+        font-size:
+            23px;
+    }
+
+    .logo-icon {
+
+        width:
+            40px;
+
+        height:
+            37px;
+    }
+
+    .theme-btn {
+
+        font-size:
+            0;
+
+        padding:
+            9px 11px;
+    }
+
+    .theme-btn::before {
+
+        content:
+            "🎨";
+
+        font-size:
+            17px;
+    }
+
+    .signin {
+
+        padding:
+            9px 13px;
+
+        font-size:
+            13px;
+    }
+
+    .page-title {
+
+        margin-bottom:
+            20px;
+    }
+
+    .carousel {
+
+        height:
+            440px;
     }
 
     .card {
-        width: 82vw;
-        height: 470px;
 
-        padding: 30px 24px;
+        width:
+            84vw;
+
+        height:
+            360px;
     }
 
-    .card h2 {
-        font-size: 25px;
+    .card.left,
+    .card.right {
+
+        opacity:
+            .2;
     }
 
-    .card p {
-        font-size: 14px;
+    .arrow {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        font-size:
+            28px;
     }
 
-    .info-bar {
-        grid-template-columns: 1fr;
+    .left-arrow {
+
+        left:
+            0;
     }
 
-    .info-item {
-        border-right: none;
+    .right-arrow {
 
-        border-bottom:
-            1px solid rgba(130,100,255,.18);
+        right:
+            0;
+    }
 
-        padding-bottom: 12px;
+    .card-front,
+    .card-back {
+
+        padding:
+            24px;
     }
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
 <header>
 
@@ -951,403 +1416,464 @@ footer span {
 
     <nav>
 
-        <a href="index.html">Home</a>
+        <a href="index.html">
+            Home
+        </a>
 
-        <a href="about.html">About</a>
+        <a href="about.html">
+            About
+        </a>
 
-        <a href="info.html" class="active">Info</a>
+        <a href="info.html" class="active">
+            Info
+        </a>
 
-        <a href="how-to-use.html">How to Use</a>
+        <a href="how-to-use.html">
+            How to Use
+        </a>
 
     </nav>
 
 
-    <a href="signin.html" class="signin">
-        👤 Sign In
-    </a>
+    <div class="header-right">
+
+        <button
+            class="theme-btn"
+            onclick="openThemePicker()">
+
+            🎨 Theme
+
+        </button>
+
+
+        <a
+            href="signin.html"
+            class="signin">
+
+            👤 Sign In
+
+        </a>
+
+    </div>
 
 </header>
 
 
-<!-- ================= MAIN ================= -->
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
 
 <main>
 
 
-    <!-- PARTICLES -->
-
-    <div class="particle p1"></div>
-    <div class="particle p2"></div>
-    <div class="particle p3"></div>
-    <div class="particle p4"></div>
-    <div class="particle p5"></div>
+<div class="particle p1"></div>
+<div class="particle p2"></div>
+<div class="particle p3"></div>
+<div class="particle p4"></div>
+<div class="particle p5"></div>
 
 
-    <!-- TITLE -->
+<!-- TITLE -->
 
-    <div class="page-title">
+<div class="page-title">
 
-        <h1>
-            Render0X <span>Info</span>
-        </h1>
+    <h1>
+        Render0X <span>Info</span>
+    </h1>
 
-        <p>
-            Everything you need to know about Render0X
-        </p>
+    <p>
+        Everything you need to know about Render0X
+    </p>
 
-    </div>
-
-
-    <!-- ================= CAROUSEL ================= -->
-
-    <div class="carousel">
+</div>
 
 
-        <!-- LEFT ARROW -->
+<!-- =====================================================
+     CAROUSEL
+     ===================================================== -->
 
-        <button
-            class="arrow left-arrow"
-            onclick="previousCard()">
-
-            ‹
-
-        </button>
+<div class="carousel">
 
 
-        <!-- ================= CARD 1 ================= -->
+<button
+    class="arrow left-arrow"
+    onclick="previousCard()">
 
-        <div class="card front" data-index="0">
+    ‹
 
-            <div class="card-inner">
-
-
-                <!-- FRONT -->
-
-                <div class="card-front">
-
-                    <div class="card-icon">
-                        🚀
-                    </div>
-
-                    <h2>
-                        Our Mission
-                    </h2>
-
-                    <p>
-
-                        Render0X is built with a simple
-                        mission: to connect people through
-                        chatting and gaming.
-
-                        We want to create a fun,
-                        welcoming and engaging place
-                        where communities can grow.
-
-                    </p>
-
-                    <div class="highlight">
-
-                        Connect. Chat. Play. Together.
-
-                    </div>
-
-                </div>
+</button>
 
 
-                <!-- BACK -->
+<!-- CARD 1 -->
 
-                <div class="card-back">
+<div
+    class="card front"
+    data-index="0">
 
-                    <div class="card-icon">
-                        🌐
-                    </div>
+    <div class="card-inner">
 
-                    <h2>
-                        Our Vision
-                    </h2>
 
-                    <h3>
-                        A better way to connect
-                    </h3>
+        <div class="card-front">
 
-                    <p>
+            <div class="card-icon">
+                🚀
+            </div>
 
-                        We are working toward a platform
-                        where chatting and gaming come
-                        together in one simple experience.
+            <h2>
+                Our Mission
+            </h2>
 
-                    </p>
+            <p>
 
-                    <div class="features">
+                Render0X is built with a simple
+                mission: to connect people through
+                chatting and gaming.
 
-                        <div>✨ Simple communication</div>
+                We want to create a fun,
+                welcoming and engaging place
+                where communities can grow.
 
-                        <div>🎮 Gaming-focused community</div>
+            </p>
 
-                        <div>🌎 Connect with others</div>
+            <div class="highlight">
 
-                        <div>🚀 Constant improvement</div>
-
-                    </div>
-
-                </div>
+                Connect. Chat. Play. Together.
 
             </div>
 
         </div>
 
 
-        <!-- ================= CARD 2 ================= -->
+        <div class="card-back">
 
-        <div class="card right" data-index="1">
+            <div class="card-icon">
+                🌐
+            </div>
 
-            <div class="card-inner">
+            <h2>
+                Our Vision
+            </h2>
 
+            <h3>
+                A better way to connect
+            </h3>
 
-                <!-- FRONT -->
+            <p>
 
-                <div class="card-front">
+                We are working toward a platform
+                where chatting and gaming come
+                together in one simple experience.
 
-                    <div class="card-icon">
-                        🎮
-                    </div>
+            </p>
 
-                    <h2>
-                        Built for Gamers
-                    </h2>
+            <div class="features">
 
-                    <p>
-
-                        Whether you're here to chat,
-                        meet people, or talk about games,
-                        Render0X is designed with gamers
-                        in mind.
-
-                    </p>
-
-                    <div class="highlight">
-
-                        Game. Chat. Connect.
-
-                    </div>
-
+                <div>
+                    ✨ Simple communication
                 </div>
 
+                <div>
+                    🎮 Gaming-focused community
+                </div>
 
-                <!-- BACK -->
+                <div>
+                    🌎 Connect with others
+                </div>
 
-                <div class="card-back">
-
-                    <div class="card-icon">
-                        ⚡
-                    </div>
-
-                    <h2>
-                        Gaming Features
-                    </h2>
-
-                    <h3>
-                        More coming soon
-                    </h3>
-
-                    <div class="features">
-
-                        <div>🎮 Gaming communities</div>
-
-                        <div>💬 Game discussions</div>
-
-                        <div>👥 Group conversations</div>
-
-                        <div>🏆 Gaming events</div>
-
-                        <div>🎯 Dedicated game spaces</div>
-
-                    </div>
-
+                <div>
+                    🚀 Constant improvement
                 </div>
 
             </div>
 
         </div>
 
+    </div>
 
-        <!-- ================= CARD 3 ================= -->
-
-        <div class="card left" data-index="2">
-
-            <div class="card-inner">
+</div>
 
 
-                <!-- FRONT -->
+<!-- CARD 2 -->
 
-                <div class="card-front">
+<div
+    class="card right"
+    data-index="1">
 
-                    <div class="card-icon">
-                        🛡️
-                    </div>
-
-                    <h2>
-                        Safe & Secure
-                    </h2>
-
-                    <p>
-
-                        Privacy and safety are important
-                        parts of the Render0X experience.
-
-                        We aim to create a respectful
-                        environment for everyone.
-
-                    </p>
-
-                    <div class="highlight">
-
-                        Privacy First
-
-                    </div>
-
-                </div>
+    <div class="card-inner">
 
 
-                <!-- BACK -->
+        <div class="card-front">
 
-                <div class="card-back">
+            <div class="card-icon">
+                🎮
+            </div>
 
-                    <div class="card-icon">
-                        🔒
-                    </div>
+            <h2>
+                Built for Gamers
+            </h2>
 
-                    <h2>
-                        Privacy
-                    </h2>
+            <p>
 
-                    <h3>
-                        Your experience matters
-                    </h3>
+                Whether you're here to chat,
+                meet people, or talk about games,
+                Render0X is designed with gamers
+                in mind.
 
-                    <div class="features">
+            </p>
 
-                        <div>🔐 Privacy-focused design</div>
+            <div class="highlight">
 
-                        <div>🛡️ Safety-focused features</div>
-
-                        <div>🚫 Respectful community</div>
-
-                        <div>⚙️ Continuous improvements</div>
-
-                    </div>
-
-                </div>
+                Game. Chat. Connect.
 
             </div>
 
         </div>
 
 
-        <!-- RIGHT ARROW -->
+        <div class="card-back">
 
-        <button
-            class="arrow right-arrow"
-            onclick="nextCard()">
+            <div class="card-icon">
+                ⚡
+            </div>
 
-            ›
+            <h2>
+                Gaming Features
+            </h2>
 
-        </button>
+            <h3>
+                More coming soon
+            </h3>
 
-    </div>
+            <div class="features">
 
+                <div>
+                    🎮 Gaming communities
+                </div>
 
-    <!-- DOTS -->
+                <div>
+                    💬 Game discussions
+                </div>
 
-    <div class="dots">
+                <div>
+                    👥 Group conversations
+                </div>
 
-        <div
-            class="dot active"
-            onclick="goToCard(0)">
-        </div>
+                <div>
+                    🏆 Gaming events
+                </div>
 
-        <div
-            class="dot"
-            onclick="goToCard(1)">
-        </div>
+                <div>
+                    🎯 Dedicated game spaces
+                </div>
 
-        <div
-            class="dot"
-            onclick="goToCard(2)">
-        </div>
-
-    </div>
-
-
-    <!-- ================= INFO BAR ================= -->
-
-    <div class="info-bar">
-
-        <div class="info-item">
-
-            <span class="big">
-                🚀 Development
-            </span>
-
-            <span class="small">
-                Growing continuously
-            </span>
-
-        </div>
-
-
-        <div class="info-item">
-
-            <span class="big">
-                ⚡ Version
-            </span>
-
-            <span class="small">
-                1.0.0
-            </span>
-
-        </div>
-
-
-        <div class="info-item">
-
-            <span class="big">
-                👥 Community
-            </span>
-
-            <span class="small">
-                Growing Fast
-            </span>
-
-        </div>
-
-
-        <div class="info-item">
-
-            <span class="big">
-                🌐 Platform
-            </span>
-
-            <span class="small">
-                Web
-            </span>
+            </div>
 
         </div>
 
     </div>
+
+</div>
+
+
+<!-- CARD 3 -->
+
+<div
+    class="card left"
+    data-index="2">
+
+    <div class="card-inner">
+
+
+        <div class="card-front">
+
+            <div class="card-icon">
+                🛡️
+            </div>
+
+            <h2>
+                Safe & Secure
+            </h2>
+
+            <p>
+
+                Privacy and safety are important
+                parts of the Render0X experience.
+
+                We aim to create a respectful
+                environment for everyone.
+
+            </p>
+
+            <div class="highlight">
+
+                Privacy First
+
+            </div>
+
+        </div>
+
+
+        <div class="card-back">
+
+            <div class="card-icon">
+                🔒
+            </div>
+
+            <h2>
+                Privacy
+            </h2>
+
+            <h3>
+                Your experience matters
+            </h3>
+
+            <div class="features">
+
+                <div>
+                    🔐 Privacy-focused design
+                </div>
+
+                <div>
+                    🛡️ Safety-focused features
+                </div>
+
+                <div>
+                    🚫 Respectful community
+                </div>
+
+                <div>
+                    ⚙️ Continuous improvements
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<button
+    class="arrow right-arrow"
+    onclick="nextCard()">
+
+    ›
+
+</button>
+
+</div>
+
+
+<!-- DOTS -->
+
+<div class="dots">
+
+    <div
+        class="dot active"
+        onclick="goToCard(0)">
+    </div>
+
+    <div
+        class="dot"
+        onclick="goToCard(1)">
+    </div>
+
+    <div
+        class="dot"
+        onclick="goToCard(2)">
+    </div>
+
+</div>
+
+
+<!-- INFO BAR -->
+
+<div class="info-bar">
+
+    <div class="info-item">
+
+        <span class="big">
+            🚀 Development
+        </span>
+
+        <span class="small">
+            Growing continuously
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <span class="big">
+            ⚡ Version
+        </span>
+
+        <span class="small">
+            1.0.0
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <span class="big">
+            👥 Community
+        </span>
+
+        <span class="small">
+            Growing Fast
+        </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+        <span class="big">
+            🌐 Platform
+        </span>
+
+        <span class="small">
+            Web
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="theme-note">
+
+    🎨 Theme settings are saved and synced across
+    <span>Render0X</span> pages.
+
+</div>
 
 </main>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
 
 <footer>
 
     <p>
 
-        © 2026 <span>Render0X</span>.
+        © 2026
+        <span>Render0X</span>.
         All rights reserved.
+
         &nbsp; • &nbsp;
+
+        Created by
+        <span>Dev</span>
+
+        &nbsp; • &nbsp;
+
         Connect. Chat. Play. Together.
 
     </p>
@@ -1355,48 +1881,34 @@ footer span {
 </footer>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
 
 <script>
 
-/* =========================================
-   RENDER0X INFORMATION CARD SYSTEM
-   ========================================= */
-
-const cards = document.querySelectorAll(".card");
-const dots = document.querySelectorAll(".dot");
+/* =====================================================
+   CARD SYSTEM
+   ===================================================== */
 
 let currentCard = 0;
 
-let autoRotate;
+const cards =
+    document.querySelectorAll(".card");
 
+const dots =
+    document.querySelectorAll(".dot");
 
-/* =========================================
-   UPDATE CARDS
-   ========================================= */
 
 function updateCards() {
 
     cards.forEach((card, index) => {
-
-        /* Remove old positions */
 
         card.classList.remove(
             "front",
             "left",
             "right"
         );
-
-
-        /* Close the flip */
-
-        card.classList.remove("flipped");
-
-
-        /*
-            Calculate position.
-
-            The current card is in front.
-        */
 
         if (index === currentCard) {
 
@@ -1422,8 +1934,6 @@ function updateCards() {
     });
 
 
-    /* UPDATE DOTS */
-
     dots.forEach((dot, index) => {
 
         dot.classList.toggle(
@@ -1436,170 +1946,212 @@ function updateCards() {
 }
 
 
-/* =========================================
-   NEXT
-   ========================================= */
-
 function nextCard() {
 
-    currentCard++;
-
-    if (currentCard >= cards.length) {
-
-        currentCard = 0;
-
-    }
+    currentCard =
+        (currentCard + 1) %
+        cards.length;
 
     updateCards();
 
 }
 
-
-/* =========================================
-   PREVIOUS
-   ========================================= */
 
 function previousCard() {
 
-    currentCard--;
-
-    if (currentCard < 0) {
-
-        currentCard = cards.length - 1;
-
-    }
+    currentCard =
+        (currentCard - 1 + cards.length) %
+        cards.length;
 
     updateCards();
 
 }
 
-
-/* =========================================
-   GO TO CARD
-   ========================================= */
 
 function goToCard(index) {
 
-    currentCard = index;
+    currentCard =
+        index;
 
     updateCards();
 
 }
 
 
-/* =========================================
-   AUTOMATIC CARD ROTATION
-   ========================================= */
-
-function startAutoRotation() {
-
-    autoRotate = setInterval(() => {
-
-        nextCard();
-
-    }, 5000);
-
-}
-
-
-/* =========================================
-   RESET AUTO ROTATION
-   ========================================= */
-
-function resetAutoRotation() {
-
-    clearInterval(autoRotate);
-
-    startAutoRotation();
-
-}
-
-
-/* =========================================
-   ARROW EVENTS
-   ========================================= */
-
-document
-    .querySelector(".left-arrow")
-    .addEventListener(
-        "click",
-        resetAutoRotation
-    );
-
-document
-    .querySelector(".right-arrow")
-    .addEventListener(
-        "click",
-        resetAutoRotation
-    );
-
-
-/* =========================================
-   CLICK MAIN CARD TO FLIP
-   ========================================= */
+/* =====================================================
+   CARD CLICK = FLIP
+   ===================================================== */
 
 cards.forEach(card => {
 
-    card.addEventListener("click", function(event) {
+    card.addEventListener(
+        "click",
+        event => {
 
-        /*
-           Only allow the main/front card
-           to flip.
-        */
+            if (
+                event.target.closest(".arrow")
+            ) {
+                return;
+            }
 
-        if (!card.classList.contains("front")) {
-            return;
+            card.classList.toggle(
+                "flipped"
+            );
+
         }
-
-        /*
-           Prevent clicking buttons
-           from flipping the card.
-        */
-
-        if (
-            event.target.closest(".arrow")
-        ) {
-            return;
-        }
-
-        card.classList.toggle("flipped");
-
-    });
+    );
 
 });
 
 
-/* =========================================
-   START
-   ========================================= */
+/* =====================================================
+   AUTOMATIC CARD TURN
+   ===================================================== */
 
-updateCards();
+setInterval(() => {
 
-startAutoRotation();
+    nextCard();
+
+}, 7000);
 
 
-/* =========================================
-   PAUSE WHEN MOUSE IS OVER CAROUSEL
-   ========================================= */
+/* =====================================================
+   SHARED RENDER0X THEME SYSTEM
+   ===================================================== */
 
-const carousel =
-    document.querySelector(".carousel");
+const themes = {
 
-carousel.addEventListener(
-    "mouseenter",
-    () => {
-        clearInterval(autoRotate);
+    purple: {
+        primary: "#d52cff",
+        secondary: "#318cff"
+    },
+
+    blue: {
+        primary: "#00b7ff",
+        secondary: "#3867ff"
+    },
+
+    green: {
+        primary: "#00e676",
+        secondary: "#00bfa5"
+    },
+
+    red: {
+        primary: "#ff315c",
+        secondary: "#ff1744"
+    },
+
+    orange: {
+        primary: "#ff8a00",
+        secondary: "#ff3d00"
+    },
+
+    pink: {
+        primary: "#ff4fcf",
+        secondary: "#9c4dff"
     }
-);
 
-carousel.addEventListener(
-    "mouseleave",
-    () => {
-        startAutoRotation();
+};
+
+
+/* =====================================================
+   APPLY SAVED THEME
+   ===================================================== */
+
+function applyTheme(themeName) {
+
+    const theme =
+        themes[themeName];
+
+    if (!theme) {
+        return;
     }
-);
+
+    document.documentElement.style.setProperty(
+        "--primary",
+        theme.primary
+    );
+
+    document.documentElement.style.setProperty(
+        "--secondary",
+        theme.secondary
+    );
+
+}
+
+
+/* =====================================================
+   THEME PICKER
+   ===================================================== */
+
+function openThemePicker() {
+
+    const names = [
+        "purple",
+        "blue",
+        "green",
+        "red",
+        "orange",
+        "pink"
+    ];
+
+    const choice =
+        prompt(
+            "Choose Render0X theme:\n\n" +
+            "1 = Purple\n" +
+            "2 = Blue\n" +
+            "3 = Green\n" +
+            "4 = Red\n" +
+            "5 = Orange\n" +
+            "6 = Pink"
+        );
+
+    const index =
+        Number(choice) - 1;
+
+    if (
+        index >= 0 &&
+        index < names.length
+    ) {
+
+        const selected =
+            names[index];
+
+        localStorage.setItem(
+            "render0x-theme",
+            selected
+        );
+
+        applyTheme(
+            selected
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD THEME
+   ===================================================== */
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem(
+            "render0x-theme"
+        ) || "purple";
+
+    applyTheme(
+        savedTheme
+    );
+
+}
+
+loadTheme();
 
 </script>
 
 </body>
+
 </html>
