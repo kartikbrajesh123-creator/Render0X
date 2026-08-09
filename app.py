@@ -1,28 +1,52 @@
-from flask import Flask, request, jsonify
+ 
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
 
+
+# =====================================================
+# FLASK APP
+# =====================================================
+
 app = Flask(__name__)
+
+# Secret key required for Flask sessions
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "render0x-development-secret"
+)
+
+
+# =====================================================
+# CORS
+# =====================================================
 
 CORS(
     app,
     supports_credentials=True,
-    origins=["https://render0x.onrender.com"]
+    origins=[
+        "https://render0x.onrender.com"
+    ]
 )
+
+
+# =====================================================
+# SESSION COOKIE SETTINGS
+# =====================================================
 
 app.config["SESSION_COOKIE_SECURE"] = True
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 
 
-DATABASE = "render0x.db"
-
-
 # =====================================================
 # DATABASE
 # =====================================================
+
+DATABASE = "render0x.db"
+
 
 def get_db():
 
@@ -58,7 +82,7 @@ init_db()
 # HOME
 # =====================================================
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
 
     return jsonify({
