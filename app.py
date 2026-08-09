@@ -1,44 +1,44 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 app = Flask(__name__)
 
 CORS(app)
 
-
 # ==============================
 # DATABASE
 # ==============================
 
-DATABASE = "render0x.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///render0x.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
 
 
-def get_db():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
+# ==============================
+# USER MODEL
+# ==============================
+
+class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.String(100), nullable=False)
+
+    email = db.Column(db.String(150), unique=True, nullable=False)
+
+    password = db.Column(db.String(255), nullable=False)
 
 
-def create_database():
+# ==============================
+# CREATE DATABASE
+# ==============================
 
-    conn = get_db()
-
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL UNIQUE,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
-        )
-    """)
-
-    conn.commit()
-    conn.close()
-
-
-create_database()
+with app.app_context():
+    db.create_all()
 
 
 # ==============================
@@ -48,73 +48,58 @@ create_database()
 @app.route("/")
 def home():
 
-    return jsonify({
-        "success": True,
-        "message": "Render0X Backend is running!"
-    })
+    return "Render0X Backend is running!"
 
 
 # ==============================
-# SIGN UP
+# REGISTER
 # ==============================
 
-@app.route("/signup", methods=["POST"])
-def signup():
+@app.route("/register", methods=["POST"])
+def register():
 
     data = request.get_json()
 
-    username = data.get("username", "").strip()
-    email = data.get("email", "").strip()
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip().lower()
     password = data.get("password", "")
 
-    if not username or not email or not password:
+    if not name or not email or not password:
 
         return jsonify({
             "success": False,
             "message": "Please fill in all fields."
         }), 400
 
+    existing_user = User.query.filter_by(
+        email=email
+    ).first()
 
-    if len(password) < 6:
-
-        return jsonify({
-            "success": False,
-            "message": "Password must be at least 6 characters."
-        }), 400
-
-
-    password_hash = generate_password_hash(password)
-
-
-    try:
-
-        conn = get_db()
-
-        conn.execute(
-            """
-            INSERT INTO users
-            (username, email, password)
-            VALUES (?, ?, ?)
-            """,
-            (username, email, password_hash)
-        )
-
-        conn.commit()
-        conn.close()
-
-
-        return jsonify({
-            "success": True,
-            "message": "Account created successfully!"
-        })
-
-
-    except sqlite3.IntegrityError:
+    if existing_user:
 
         return jsonify({
             "success": False,
-            "message": "Username or email already exists."
+            "message": "An account with this email already exists."
         }), 409
+
+    hashed_password = generate_password_hash(
+        password
+    )
+
+    user = User(
+        name=name,
+        email=email,
+        password=hashed_password
+    )
+
+    db.session.add(user)
+
+    db.session.commit()
+
+    return jsonify({
+        "success": True,
+        "message": "Account created successfully!"
+    })
 
 
 # ==============================
@@ -126,9 +111,8 @@ def login():
 
     data = request.get_json()
 
-    email = data.get("email", "").strip()
+    email = data.get("email", "").strip().lower()
     password = data.get("password", "")
-
 
     if not email or not password:
 
@@ -137,31 +121,19 @@ def login():
             "message": "Please enter your email and password."
         }), 400
 
+    user = User.query.filter_by(
+        email=email
+    ).first()
 
-    conn = get_db()
-
-    user = conn.execute(
-        """
-        SELECT *
-        FROM users
-        WHERE email = ?
-        """,
-        (email,)
-    ).fetchone()
-
-    conn.close()
-
-
-    if user is None:
+    if not user:
 
         return jsonify({
             "success": False,
             "message": "Invalid email or password."
         }), 401
 
-
     if not check_password_hash(
-        user["password"],
+        user.password,
         password
     ):
 
@@ -170,25 +142,35 @@ def login():
             "message": "Invalid email or password."
         }), 401
 
-
     return jsonify({
+
         "success": True,
+
         "message": "Login successful!",
+
         "user": {
-            "id": user["id"],
-            "username": user["username"],
-            "email": user["email"]
+            "id": user.id,
+            "name": user.name,
+            "email": user.email
         }
+
     })
 
 
 # ==============================
-# START SERVER
+# RUN
 # ==============================
 
 if __name__ == "__main__":
 
+    port = int(
+        os.environ.get(
+            "PORT",
+            5000
+        )
+    )
+
     app.run(
         host="0.0.0.0",
-        port=10000
+        port=port
     )
