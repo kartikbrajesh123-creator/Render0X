@@ -1,5 +1,4 @@
-```python
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
@@ -7,22 +6,10 @@ import os
 
 app = Flask(__name__)
 
-# =====================================================
-# SECURITY / SESSION
-# =====================================================
-
-app.secret_key = os.environ.get(
-    "SECRET_KEY",
-    "render0x-development-secret-change-this"
-)
-
-# Allow your Render0X frontend to use the login session
 CORS(
     app,
     supports_credentials=True,
-    origins=[
-        "https://render0x.onrender.com"
-    ]
+    origins=["https://render0x.onrender.com"]
 )
 
 app.config["SESSION_COOKIE_SECURE"] = True
@@ -326,4 +313,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port
     )
-```
+ 
