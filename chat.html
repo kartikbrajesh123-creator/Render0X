@@ -421,7 +421,118 @@
         </p>
 
     </footer>
+<script>
 
+async function checkLogin() {
+
+    try {
+
+        const response =
+            await fetch(
+                "https://render0x-contact.onrender.com/me",
+                {
+                    method: "GET",
+
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            window.location.href =
+                "signin.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in as:",
+            data.user.name
+        );
+
+
+        /*
+            Change the development message
+            to show the logged-in user's name.
+        */
+
+        const heading =
+            document.querySelector("h2");
+
+        if (heading) {
+
+            heading.textContent =
+                "Welcome, " +
+                data.user.name +
+                "!";
+
+        }
+
+
+        const status =
+            document.querySelector(".status");
+
+        if (status) {
+
+            status.textContent =
+                "✅ Signed in as " +
+                data.user.email;
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "signin.html";
+
+    }
+
+}
+
+
+checkLogin();
+
+
+async function logout() {
+
+    try {
+
+        await fetch(
+            "https://render0x-contact.onrender.com/logout",
+            {
+                method: "POST",
+
+                credentials: "include"
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+
+    window.location.href =
+        "signin.html";
+
+}
+
+</script>
 </body>
 </html>
 ```
