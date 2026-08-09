@@ -1432,8 +1432,16 @@
 
                     if (data.success) {
 
-                        loginStatus.textContent =
-                            "✅ Signed in successfully!";
+    loginStatus.textContent =
+        "✅ Signed in successfully!";
+
+    setTimeout(function() {
+
+        window.location.href = "chat.html";
+
+    }, 800);
+
+}
 
                         /*
                             Later we will save the
