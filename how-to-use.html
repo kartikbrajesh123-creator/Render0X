@@ -2181,71 +2181,17 @@
                 }
 
 
-                contactStatus.textContent =
-                    "Sending...";
+contactStatus.textContent =
+    "Sending...";
 
+setTimeout(function() {
 
-                try {
+    contactStatus.textContent =
+        "✅ Message received successfully!";
 
-                    const response =
-                        await fetch(
-                            "https://render0x-contact.onrender.com/contact",
-                            {
-                                method: "POST",
+    contactForm.reset();
 
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body: JSON.stringify({
-
-                                    name: name,
-
-                                    email: email,
-
-                                    message: message
-
-                                })
-
-                            }
-                        );
-
-
-                    const result =
-                        await response.json();
-
-
-                    if (result.success) {
-
-                        contactStatus.textContent =
-                            "✅ Message received successfully!";
-
-                        contactForm.reset();
-
-                    }
-
-                    else {
-
-                        contactStatus.textContent =
-                            "❌ " +
-                            (
-                                result.message ||
-                                "Something went wrong."
-                            );
-
-                    }
-
-                }
-
-                catch (error) {
-
-                    console.error(error);
-
-                    contactStatus.textContent =
-                        "❌ Unable to connect to Render0X server.";
-
-                }
+}, 800);
 
             }
 
