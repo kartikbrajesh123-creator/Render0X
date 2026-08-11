@@ -1,115 +1,88 @@
 import os
-import json
-import hashlib
-import secrets
-
-from flask import Flask, render_template, request, jsonify, session, redirect
-
+import re
+import sqlite3
+from functools import wraps
+from flask import Flask, request, jsonify, session, redirect, send_from_directory
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-# =========================================================
+# =========================
 # FLASK SESSION
-# =========================================================
+# =========================
 
 app.secret_key = os.environ.get(
     "FLASK_SECRET_KEY",
     "render0x-development-secret-change-this"
 )
 
+# =========================
+# DATABASE
+# =========================
 
-# =========================================================
-# USER DATABASE
-# =========================================================
-
-USERS_FILE = "users.json"
-
-
-def load_users():
-    if not os.path.exists(USERS_FILE):
-        return {}
-
-    try:
-        with open(USERS_FILE, "r", encoding="utf-8") as file:
-            return json.load(file)
-    except (json.JSONDecodeError, OSError):
-        return {}
+DATABASE = "users.db"
 
 
-def save_users(users):
-    with open(USERS_FILE, "w", encoding="utf-8") as file:
-        json.dump(users, file, indent=4)
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
-# =========================================================
-# PASSWORD HASHING
-# =========================================================
+def init_db():
+    conn = get_db()
 
-def hash_password(password, salt=None):
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
+    """)
 
-    if salt is None:
-        salt = secrets.token_hex(16)
-
-    password_hash = hashlib.pbkdf2_hmac(
-        "sha256",
-        password.encode("utf-8"),
-        salt.encode("utf-8"),
-        100000
-    ).hex()
-
-    return salt, password_hash
+    conn.commit()
+    conn.close()
 
 
-def check_password(password, salt, stored_hash):
-
-    _, password_hash = hash_password(password, salt)
-
-    return secrets.compare_digest(
-        password_hash,
-        stored_hash
-    )
+init_db()
 
 
-# =========================================================
+# =========================
 # USERNAME VALIDATION
-# =========================================================
+# =========================
 
 def valid_username(username):
-
-    if not 3 <= len(username) <= 20:
-        return False
-
-    return all(
-        character.isalnum() or character == "_"
-        for character in username
-    )
+    return re.fullmatch(
+        r"[A-Za-z0-9_]{3,20}",
+        username
+    ) is not None
 
 
-# =========================================================
+# =========================
 # HOME
-# =========================================================
+# =========================
 
 @app.route("/")
-def home():
-    return render_template("index.html")
+def index():
+    return send_from_directory(".", "index.html")
 
 
-# =========================================================
+# =========================
 # SIGN UP PAGE
-# =========================================================
+# =========================
 
 @app.route("/signup")
 def signup_page():
 
     if session.get("username"):
-        return redirect("/chat")
+        return redirect("/")
 
-    return render_template("signup.html")
+    return send_from_directory(".", "signup.html")
 
 
-# =========================================================
+# =========================
 # SIGN UP API
-# =========================================================
+# =========================
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -130,102 +103,78 @@ def signup():
         data.get("password", "")
     )
 
-    # -----------------------------
-    # Validate username
-    # -----------------------------
+    # Username check
 
     if not valid_username(username):
-
         return jsonify({
             "success": False,
-            "message":
-                "Username must be 3-20 characters and contain only letters, numbers or _."
+            "message": "Username must be 3-20 characters and use only letters, numbers or _."
         }), 400
 
-    # -----------------------------
-    # Validate password
-    # -----------------------------
+    # Password check
 
     if len(password) < 6:
-
         return jsonify({
             "success": False,
-            "message":
-                "Password must be at least 6 characters."
+            "message": "Password must be at least 6 characters."
         }), 400
 
-    # -----------------------------
-    # Load users
-    # -----------------------------
+    conn = get_db()
 
-    users = load_users()
+    existing = conn.execute(
+        "SELECT id FROM users WHERE username = ?",
+        (username.lower(),)
+    ).fetchone()
 
-    username_key = username.lower()
+    if existing:
 
-    # -----------------------------
-    # Check existing account
-    # -----------------------------
-
-    if username_key in users:
+        conn.close()
 
         return jsonify({
             "success": False,
-            "message":
-                "Username already exists."
+            "message": "Username already exists."
         }), 409
 
-    # -----------------------------
-    # Hash password
-    # -----------------------------
+    # Hash password before storing it
 
-    salt, password_hash = hash_password(password)
+    password_hash = generate_password_hash(password)
 
-    # -----------------------------
-    # Create account
-    # -----------------------------
+    conn.execute(
+        """
+        INSERT INTO users (username, password)
+        VALUES (?, ?)
+        """,
+        (
+            username.lower(),
+            password_hash
+        )
+    )
 
-    users[username_key] = {
-
-        "username": username,
-
-        "salt": salt,
-
-        "password_hash": password_hash
-
-    }
-
-    save_users(users)
-
-    # -----------------------------
-    # Automatically sign user in
-    # -----------------------------
-
-    session.clear()
-
-    session["username"] = username
+    conn.commit()
+    conn.close()
 
     return jsonify({
         "success": True,
-        "username": username
+        "message": "Account created successfully."
     })
 
 
-# =========================================================
+# =========================
 # SIGN IN PAGE
-# =========================================================
+# =========================
 
 @app.route("/signin")
 def signin_page():
 
     if session.get("username"):
-        return redirect("/chat")
+        return redirect("/")
 
-    return render_template("signin.html")
+    return send_from_directory(".", "signin.html")
 
 
-# =========================================================
+# =========================
 # SIGN IN API
-# =========================================================
+# =========================
 
 @app.route("/api/signin", methods=["POST"])
 def signin():
@@ -233,7 +182,6 @@ def signin():
     data = request.get_json(silent=True)
 
     if not data:
-
         return jsonify({
             "success": False,
             "message": "Invalid request."
@@ -241,57 +189,40 @@ def signin():
 
     username = str(
         data.get("username", "")
-    ).strip()
+    ).strip().lower()
 
     password = str(
         data.get("password", "")
     )
 
-    if not username or not password:
+    conn = get_db()
 
-        return jsonify({
-            "success": False,
-            "message":
-                "Please enter username and password."
-        }), 400
+    user = conn.execute(
+        """
+        SELECT * FROM users
+        WHERE username = ?
+        """,
+        (username,)
+    ).fetchone()
 
-    users = load_users()
-
-    username_key = username.lower()
-
-    user = users.get(username_key)
-
-    # -----------------------------
-    # User doesn't exist
-    # -----------------------------
+    conn.close()
 
     if not user:
-
         return jsonify({
             "success": False,
-            "message":
-                "Invalid username or password."
+            "message": "Invalid username or password."
         }), 401
 
-    # -----------------------------
-    # Check password
-    # -----------------------------
-
-    if not check_password(
-        password,
-        user["salt"],
-        user["password_hash"]
+    if not check_password_hash(
+        user["password"],
+        password
     ):
-
         return jsonify({
             "success": False,
-            "message":
-                "Invalid username or password."
+            "message": "Invalid username or password."
         }), 401
 
-    # -----------------------------
-    # Create Flask session
-    # -----------------------------
+    # Login successful
 
     session.clear()
 
@@ -303,9 +234,9 @@ def signin():
     })
 
 
-# =========================================================
+# =========================
 # CURRENT USER
-# =========================================================
+# =========================
 
 @app.route("/api/me")
 def current_user():
@@ -324,83 +255,9 @@ def current_user():
     })
 
 
-# =========================================================
-# CHAT PAGE
-# =========================================================
-
-@app.route("/chat")
-def chat_page():
-
-    username = session.get("username")
-
-    # ---------------------------------
-    # NOT SIGNED IN = NO CHAT
-    # ---------------------------------
-
-    if not username:
-        return redirect("/signin")
-
-    return render_template(
-        "chat.html",
-        username=username
-    )
-
-
-# =========================================================
-# CHAT API
-# =========================================================
-
-@app.route("/api/chat", methods=["POST"])
-def chat_api():
-
-    username = session.get("username")
-
-    # ---------------------------------
-    # Protect API
-    # ---------------------------------
-
-    if not username:
-
-        return jsonify({
-            "success": False,
-            "message":
-                "You must sign in first."
-        }), 401
-
-    data = request.get_json(silent=True) or {}
-
-    message = str(
-        data.get("message", "")
-    ).strip()
-
-    if not message:
-
-        return jsonify({
-            "success": False,
-            "message":
-                "Message cannot be empty."
-        }), 400
-
-    # ---------------------------------
-    # TEMPORARY CHAT RESPONSE
-    # ---------------------------------
-    #
-    # Replace this section later
-    # with your real AI/chat system.
-    #
-
-    return jsonify({
-        "success": True,
-        "username": username,
-        "reply":
-            "Your login is working! "
-            "Now connect your real chat/AI backend here."
-    })
-
-
-# =========================================================
+# =========================
 # LOGOUT
-# =========================================================
+# =========================
 
 @app.route("/api/logout", methods=["POST"])
 def logout():
@@ -412,28 +269,66 @@ def logout():
     })
 
 
-# =========================================================
-# SIMPLE PAGES
-# =========================================================
+# =========================
+# CHAT PAGE
+# =========================
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
+@app.route("/chat")
+def chat_page():
 
+    username = session.get("username")
 
-@app.route("/info")
-def info():
-    return render_template("info.html")
+    # Not signed in → cannot open chat
 
+    if not username:
+        return redirect("/signin")
 
-@app.route("/how-to-use")
-def how_to_use():
-    return render_template("how-to-use.html")
+    return send_from_directory(".", "chat.html")
 
 
-# =========================================================
+# =========================
+# CHAT API
+# =========================
+
+@app.route("/api/chat", methods=["POST"])
+def chat_api():
+
+    username = session.get("username")
+
+    # Protect chat API
+
+    if not username:
+        return jsonify({
+            "success": False,
+            "message": "Please sign in first."
+        }), 401
+
+    data = request.get_json(silent=True) or {}
+
+    message = str(
+        data.get("message", "")
+    ).strip()
+
+    if not message:
+        return jsonify({
+            "success": False,
+            "message": "Message cannot be empty."
+        }), 400
+
+    # =========================
+    # YOUR AI CHAT LOGIC HERE
+    # =========================
+
+    return jsonify({
+        "success": True,
+        "reply": "Hello " + username + "! Your login is working.",
+        "username": username
+    })
+
+
+# =========================
 # RUN
-# =========================================================
+# =========================
 
 if __name__ == "__main__":
 
