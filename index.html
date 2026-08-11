@@ -1,1606 +1,1022 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Render0X - Connect. Chat. Play.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>Render0X</title>
 
-/* =====================================================
-   RENDER0X THEME VARIABLES
-   ===================================================== */
+    <style>
 
-:root {
-    --primary: #d52cff;
-    --secondary: #318cff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    --background: #030510;
-    --surface: #080b1a;
-    --text: #ffffff;
-    --muted: #b8bac8;
+        body {
+            min-height: 100vh;
 
-    --border: rgba(140,65,255,.35);
-}
+            font-family: Arial, Helvetica, sans-serif;
 
+            background: #030510;
+            color: white;
 
-/* =====================================================
-   RESET
-   ===================================================== */
+            display: flex;
+            flex-direction: column;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-html {
-    scroll-behavior: smooth;
-}
+        /* =================================================
+           HEADER
+           ================================================= */
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-    transition: .4s;
-}
+        header {
+            height: 90px;
 
+            padding: 0 5%;
 
-/* =====================================================
-   HEADER
-   ===================================================== */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-header {
-    height: 88px;
-    padding: 0 4%;
+            border-bottom: 1px solid rgba(120, 90, 255, 0.2);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+            background: rgba(3, 5, 16, 0.96);
+        }
 
-    background: rgba(3,5,16,.94);
 
-    border-bottom: 1px solid var(--border);
+        /* LOGO */
 
-    position: relative;
-    z-index: 20;
+        .logo {
+            display: flex;
+            align-items: center;
 
-    backdrop-filter: blur(12px);
-}
+            gap: 12px;
 
+            text-decoration: none;
 
-/* =====================================================
-   LOGO
-   ===================================================== */
+            color: white;
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+            font-size: 29px;
+            font-weight: bold;
+        }
 
-    color: white;
-    text-decoration: none;
 
-    font-size: 29px;
-    font-weight: 700;
-}
+        .logo-icon {
+            width: 46px;
+            height: 40px;
 
-.logo-icon {
-    width: 47px;
-    height: 42px;
+            border: 3px solid #a83cff;
+            border-right-color: #318cff;
 
-    border: 3px solid var(--primary);
-    border-right-color: var(--secondary);
+            border-radius: 13px;
 
-    border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            box-shadow:
+                0 0 12px rgba(190, 40, 255, 0.7),
+                0 0 18px rgba(40, 120, 255, 0.4);
 
-    position: relative;
+            position: relative;
+        }
 
-    box-shadow:
-        0 0 12px var(--primary),
-        0 0 22px rgba(45,120,255,.25);
-}
 
-.logo-icon::before {
-    content: "•••";
+        .logo-icon::before {
+            content: "•••";
 
-    color: var(--primary);
+            color: #9d52ff;
 
-    font-size: 18px;
-    letter-spacing: 3px;
-}
+            font-size: 18px;
 
-.logo-icon::after {
-    content: "";
+            letter-spacing: 3px;
+        }
 
-    position: absolute;
 
-    bottom: -8px;
-    left: 7px;
+        .logo-icon::after {
+            content: "";
 
-    width: 12px;
-    height: 12px;
+            position: absolute;
 
-    border-left: 3px solid var(--primary);
+            bottom: -8px;
+            left: 7px;
 
-    transform: skew(-25deg);
-}
+            width: 12px;
+            height: 12px;
 
-.logo span {
-    background:
-        linear-gradient(
-            90deg,
-            white 40%,
-            var(--primary),
-            var(--secondary)
-        );
+            border-left: 3px solid #a83cff;
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+            transform: skew(-25deg);
+        }
 
 
-/* =====================================================
-   NAVIGATION
-   ===================================================== */
+        .logo span {
+            background:
+                linear-gradient(
+                    90deg,
+                    white 45%,
+                    #a63dff 70%,
+                    #318cff
+                );
 
-nav {
-    display: flex;
-    align-items: center;
-    gap: 34px;
-}
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-nav a {
-    color: #eeeeee;
 
-    text-decoration: none;
+        /* NAVIGATION */
 
-    font-size: 17px;
+        nav {
+            display: flex;
 
-    position: relative;
+            align-items: center;
 
-    transition: .3s;
-}
+            gap: 35px;
+        }
 
-nav a:hover {
-    color: var(--primary);
-}
 
-nav a.active {
-    color: white;
-}
+        nav a {
+            color: #d5d5df;
 
-nav a.active::after {
-    content: "";
+            text-decoration: none;
 
-    position: absolute;
+            font-size: 16px;
 
-    left: 0;
-    right: 0;
+            transition: 0.25s;
+        }
 
-    bottom: -13px;
 
-    height: 2px;
+        nav a:hover {
+            color: #b14cff;
+        }
 
-    background:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--secondary)
-        );
 
-    box-shadow: 0 0 8px var(--primary);
-}
+        /* =================================================
+           SIGN IN / USER BUTTON
+           ================================================= */
 
+        .signin-button {
 
-/* =====================================================
-   HEADER RIGHT
-   ===================================================== */
+            padding: 11px 22px;
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+            border-radius: 9px;
 
+            text-decoration: none;
 
-/* =====================================================
-   THEME BUTTON
-   ===================================================== */
+            color: white;
 
-.customize-btn {
-    border: 1px solid var(--border);
+            border: 2px solid transparent;
 
-    background: rgba(10,12,29,.9);
+            background:
+                linear-gradient(#080b1a, #080b1a) padding-box,
+                linear-gradient(
+                    90deg,
+                    #ed27ff,
+                    #348cff
+                ) border-box;
 
-    color: white;
+            box-shadow:
+                0 0 13px rgba(180, 50, 255, 0.3);
 
-    padding: 10px 14px;
+            transition: 0.25s;
 
-    border-radius: 9px;
+            font-family: Arial, Helvetica, sans-serif;
 
-    cursor: pointer;
+            font-size: 14px;
 
-    font-size: 14px;
+            white-space: nowrap;
+        }
 
-    transition: .3s;
-}
 
-.customize-btn:hover {
-    border-color: var(--primary);
+        .signin-button:hover {
 
-    box-shadow:
-        0 0 15px var(--primary);
+            transform: translateY(-2px);
 
-    transform: translateY(-2px);
-}
+            box-shadow:
+                0 0 22px rgba(180, 50, 255, 0.5);
+        }
 
 
-/* =====================================================
-   SIGN IN
-   ===================================================== */
+        /* =================================================
+           MAIN
+           ================================================= */
 
-.signin {
-    padding: 11px 21px;
+        main {
 
-    border-radius: 9px;
+            flex: 1;
 
-    color: white;
+            display: flex;
 
-    text-decoration: none;
+            justify-content: center;
 
-    border: 2px solid transparent;
+            align-items: center;
 
-    background:
-        linear-gradient(#080b1a,#080b1a) padding-box,
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--secondary)
-        ) border-box;
+            text-align: center;
 
-    transition: .3s;
-}
+            position: relative;
 
-.signin:hover {
-    transform: translateY(-2px);
+            overflow: hidden;
 
-    box-shadow:
-        0 0 22px var(--primary);
-}
+            background:
 
+                radial-gradient(
+                    circle at 25% 50%,
+                    rgba(130, 0, 255, 0.13),
+                    transparent 30%
+                ),
 
-/* =====================================================
-   HERO
-   ===================================================== */
+                radial-gradient(
+                    circle at 75% 50%,
+                    rgba(0, 100, 255, 0.13),
+                    transparent 30%
+                );
+        }
 
-.hero {
-    min-height: calc(100vh - 88px);
 
-    display: flex;
-    justify-content: center;
-    text-align: center;
+        /* =================================================
+           DECORATIVE GLOW
+           ================================================= */
 
-    position: relative;
+        .glow {
 
-    overflow: hidden;
+            position: absolute;
 
-    padding: 90px 20px;
+            width: 280px;
+            height: 280px;
 
-    background:
-        radial-gradient(
-            circle at 20% 40%,
-            rgba(213,44,255,.12),
-            transparent 30%
-        ),
+            border-radius: 50%;
 
-        radial-gradient(
-            circle at 80% 50%,
-            rgba(49,140,255,.12),
-            transparent 30%
-        );
-}
+            border:
+                1px solid rgba(170, 50, 255, 0.18);
 
+            box-shadow:
 
-/* =====================================================
-   GRID
-   ===================================================== */
+                0 0 60px
+                rgba(150, 40, 255, 0.08),
 
-.grid {
-    position: absolute;
+                inset 0 0 60px
+                rgba(50, 120, 255, 0.05);
+        }
 
-    inset: 0;
 
-    opacity: .25;
+        .glow.one {
 
-    pointer-events: none;
+            left: -120px;
 
-    background-image:
-        linear-gradient(
-            rgba(150,100,255,.07) 1px,
-            transparent 1px
-        ),
+            top: 15%;
+        }
 
-        linear-gradient(
-            90deg,
-            rgba(150,100,255,.07) 1px,
-            transparent 1px
-        );
 
-    background-size: 55px 55px;
+        .glow.two {
 
-    mask-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            black 25%,
-            black 75%,
-            transparent
-        );
-}
+            right: -120px;
 
+            bottom: 10%;
 
-/* =====================================================
-   PARTICLES
-   ===================================================== */
+            border-color:
+                rgba(40, 130, 255, 0.18);
+        }
 
-.particle {
-    position: absolute;
 
-    width: 3px;
-    height: 3px;
+        /* =================================================
+           MAIN CARD
+           ================================================= */
 
-    border-radius: 50%;
+        .login-card {
 
-    background: var(--primary);
+            position: relative;
 
-    box-shadow:
-        0 0 9px var(--primary);
+            z-index: 2;
 
-    animation:
-        floatParticle 5s infinite alternate;
-}
+            width: 600px;
 
-.one {
-    top: 20%;
-    left: 9%;
-}
+            max-width: 90%;
 
-.two {
-    top: 30%;
-    left: 22%;
-    animation-delay: 1s;
-}
+            padding: 50px 40px;
 
-.three {
-    top: 18%;
-    right: 20%;
-    animation-delay: 2s;
-}
+            border-radius: 22px;
 
-.four {
-    top: 55%;
-    right: 9%;
-    animation-delay: 1.5s;
-}
+            background:
+                rgba(8, 11, 26, 0.80);
 
-.five {
-    bottom: 18%;
-    left: 17%;
-    animation-delay: 2.5s;
-}
+            border:
+                1px solid rgba(150, 70, 255, 0.22);
 
-@keyframes floatParticle {
+            box-shadow:
 
-    from {
-        transform: translateY(0);
-        opacity: .35;
-    }
+                0 0 40px
+                rgba(150, 40, 255, 0.08),
 
-    to {
-        transform: translateY(-22px);
-        opacity: 1;
-    }
-}
+                0 0 80px
+                rgba(40, 100, 255, 0.05);
 
+            backdrop-filter: blur(8px);
+        }
 
-/* =====================================================
-   HERO CONTENT
-   ===================================================== */
 
-.hero-content {
-    width: 100%;
-    max-width: 1050px;
+        .login-icon {
 
-    position: relative;
-    z-index: 5;
-}
+            width: 90px;
+            height: 90px;
 
-.small-label {
-    display: inline-block;
+            margin: 0 auto 28px;
 
-    padding: 8px 16px;
+            border-radius: 25px;
 
-    border-radius: 30px;
+            display: flex;
 
-    border: 1px solid var(--border);
+            align-items: center;
 
-    color: var(--muted);
+            justify-content: center;
 
-    background: rgba(10,12,29,.6);
+            font-size: 43px;
 
-    font-size: 13px;
+            border: 2px solid transparent;
 
-    letter-spacing: 1.5px;
+            background:
 
-    margin-bottom: 24px;
-}
+                linear-gradient(
+                    #080b1a,
+                    #080b1a
+                ) padding-box,
 
-.hero h1 {
-    font-size: clamp(48px,8vw,82px);
+                linear-gradient(
+                    135deg,
+                    #e32cff,
+                    #348cff
+                ) border-box;
 
-    line-height: 1.05;
+            box-shadow:
 
-    margin-bottom: 20px;
-}
+                0 0 25px
+                rgba(190, 40, 255, 0.3),
 
-.gradient-text {
-    background:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            #7950ff,
-            var(--secondary)
-        );
+                0 0 35px
+                rgba(40, 120, 255, 0.2);
+        }
 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 
-    background-size: 200% 200%;
+        /* =================================================
+           TEXT
+           ================================================= */
 
-    animation: gradientMove 5s ease infinite;
-}
+        .login-card h1 {
 
-@keyframes gradientMove {
+            font-size: 48px;
 
-    0% {
-        background-position: 0% 50%;
-    }
+            margin-bottom: 16px;
 
-    50% {
-        background-position: 100% 50%;
-    }
+            background:
 
-    100% {
-        background-position: 0% 50%;
-    }
-}
+                linear-gradient(
+                    90deg,
+                    #d03cff,
+                    #7650ff,
+                    #318cff
+                );
 
-.hero p {
-    max-width: 650px;
+            -webkit-background-clip: text;
 
-    margin: 0 auto 30px;
+            -webkit-text-fill-color: transparent;
+        }
 
-    color: var(--muted);
 
-    font-size: 19px;
+        .subtitle {
 
-    line-height: 1.7;
-}
+            color: #999aaa;
 
+            font-size: 17px;
 
-/* =====================================================
-   CREATOR
-   ===================================================== */
+            line-height: 1.7;
 
-.creator {
-    color: var(--muted);
+            margin-bottom: 25px;
+        }
 
-    font-size: 14px;
 
-    margin-bottom: 25px;
-}
+        /* =================================================
+           CHAT BUTTON
+           ================================================= */
 
-.creator span {
-    color: var(--primary);
+        .chat-button {
 
-    font-weight: bold;
-}
+            display: inline-block;
 
+            margin-top: 10px;
 
-/* =====================================================
-   START CHAT
-   ===================================================== */
+            padding: 14px 30px;
 
-.start-chat {
-    display: inline-flex;
+            border-radius: 10px;
 
-    align-items: center;
-    justify-content: center;
+            color: white;
 
-    gap: 10px;
+            text-decoration: none;
 
-    min-width: 180px;
+            border: 1px solid #7246ff;
 
-    padding: 14px 25px;
+            background:
+                rgba(100, 50, 255, 0.08);
 
-    border-radius: 10px;
+            transition: 0.25s;
+        }
 
-    color: white;
 
-    text-decoration: none;
+        .chat-button:hover {
 
-    font-size: 16px;
+            background:
+                linear-gradient(
+                    90deg,
+                    #792cff,
+                    #327dff
+                );
 
-    font-weight: 600;
+            box-shadow:
+                0 0 20px
+                rgba(120, 50, 255, 0.4);
 
-    background:
-        linear-gradient(
-            90deg,
-            var(--primary),
-            var(--secondary)
-        );
+            transform:
+                translateY(-2px);
+        }
 
-    box-shadow:
-        0 0 20px rgba(213,44,255,.3);
 
-    transition: .3s;
-}
+        /* =================================================
+           STATUS
+           ================================================= */
 
-.start-chat:hover {
-    transform: translateY(-3px);
+        #authStatus {
 
-    box-shadow:
-        0 0 30px var(--primary);
-}
+            margin-top: 22px;
 
+            min-height: 20px;
 
-/* =====================================================
-   FEATURES
-   ===================================================== */
+            color: #85899d;
 
-.features {
-    width: 100%;
+            font-size: 14px;
+        }
 
-    margin: 65px auto 0;
 
-    display: grid;
+        /* =================================================
+           FOOTER
+           ================================================= */
 
-    grid-template-columns:
-        repeat(3,1fr);
+        footer {
 
-    gap: 20px;
-}
+            border-top:
+                1px solid
+                rgba(120, 90, 255, 0.18);
 
-.feature-card {
-    padding: 27px 23px;
+            padding: 22px 5%;
 
-    border-radius: 16px;
+            text-align: center;
 
-    background:
-        rgba(7,9,23,.75);
+            background: #02040c;
+        }
 
-    border:
-        1px solid var(--border);
 
-    box-shadow:
-        0 0 25px rgba(80,30,200,.08);
+        footer p {
 
-    transition: .3s;
-}
+            color: #707487;
 
-.feature-card:hover {
-    transform: translateY(-6px);
+            font-size: 14px;
+        }
 
-    border-color: var(--primary);
 
-    box-shadow:
-        0 0 25px rgba(213,44,255,.18);
-}
+        footer span {
 
-.feature-icon {
-    font-size: 32px;
+            color: #a84cff;
+        }
 
-    margin-bottom: 14px;
-}
 
-.feature-card h2 {
-    font-size: 19px;
+        /* =================================================
+           MOBILE
+           ================================================= */
 
-    margin-bottom: 9px;
-}
+        @media (max-width: 800px) {
 
-.feature-card p {
-    color: var(--muted);
+            header {
 
-    font-size: 14px;
+                height: auto;
 
-    line-height: 1.6;
-}
+                padding: 18px 20px;
 
+                flex-wrap: wrap;
 
-/* =====================================================
-   COMING SOON
-   ===================================================== */
+                gap: 18px;
+            }
 
-.coming-soon {
-    width: min(850px,100%);
 
-    margin: 65px auto 0;
+            nav {
 
-    padding: 30px 25px;
+                order: 3;
 
-    border-radius: 17px;
+                width: 100%;
 
-    text-align: center;
+                justify-content: center;
 
-    border: 1px solid var(--border);
+                gap: 20px;
 
-    background:
-        rgba(7,9,23,.7);
-}
+                flex-wrap: wrap;
+            }
 
-.coming-soon h2 {
-    margin-bottom: 10px;
 
-    font-size: 24px;
-}
+            .logo {
 
-.coming-soon p {
-    color: var(--muted);
+                font-size: 24px;
+            }
 
-    line-height: 1.7;
 
-    font-size: 15px;
-}
+            .signin-button {
 
+                font-size: 14px;
 
-/* =====================================================
-   FOOTER
-   ===================================================== */
+                padding: 9px 15px;
+            }
 
-footer {
-    padding: 28px 5% 22px;
 
-    background: #02040c;
+            .login-card {
 
-    border-top: 1px solid var(--border);
+                padding:
+                    40px 25px;
+            }
 
-    text-align: center;
-}
 
-footer p {
-    color: #747789;
+            .login-card h1 {
 
-    font-size: 14px;
-}
+                font-size: 38px;
+            }
 
-footer span {
-    color: var(--primary);
-}
 
+            .subtitle {
 
-/* =====================================================
-   THEME PANEL
-   ===================================================== */
+                font-size: 15px;
+            }
+        }
 
-.overlay {
-    position: fixed;
 
-    inset: 0;
+        @media (max-width: 550px) {
 
-    background: rgba(0,0,0,.5);
+            header {
 
-    opacity: 0;
+                gap: 12px;
+            }
 
-    visibility: hidden;
 
-    transition: .3s;
+            .logo {
 
-    z-index: 90;
-}
+                font-size: 23px;
+            }
 
-.overlay.show {
-    opacity: 1;
 
-    visibility: visible;
-}
+            .logo-icon {
 
-.custom-panel {
-    position: fixed;
+                width: 40px;
 
-    top: 0;
-    right: 0;
+                height: 37px;
+            }
 
-    width: min(360px,92vw);
 
-    height: 100vh;
+            nav {
 
-    padding: 28px 25px;
+                gap: 16px;
+            }
 
-    background: #070917;
 
-    border-left: 1px solid var(--border);
+            nav a {
 
-    transform: translateX(105%);
+                font-size: 14px;
+            }
 
-    transition: .4s;
 
-    z-index: 100;
+            .login-card {
 
-    overflow-y: auto;
-}
+                padding:
+                    30px 20px;
+            }
 
-.custom-panel.open {
-    transform: translateX(0);
-}
 
+            .login-card h1 {
 
-/* =====================================================
-   PANEL
-   ===================================================== */
+                font-size: 30px;
+            }
+        }
 
-.panel-header {
-    display: flex;
+    </style>
 
-    align-items: center;
-    justify-content: space-between;
-
-    padding-bottom: 20px;
-
-    margin-bottom: 25px;
-
-    border-bottom:
-        1px solid rgba(130,100,255,.16);
-}
-
-.panel-header h2 {
-    font-size: 21px;
-}
-
-.close-panel {
-    width: 35px;
-    height: 35px;
-
-    border-radius: 9px;
-
-    border: 1px solid var(--border);
-
-    background: var(--surface);
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 18px;
-}
-
-
-/* =====================================================
-   THEME OPTIONS
-   ===================================================== */
-
-.setting-section {
-    margin-bottom: 30px;
-}
-
-.setting-section h3 {
-    font-size: 15px;
-
-    margin-bottom: 7px;
-}
-
-.setting-description {
-    color: #85889a;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    margin-bottom: 14px;
-}
-
-.color-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap: 10px;
-}
-
-.color-option {
-    min-height: 75px;
-
-    border-radius: 12px;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    background: var(--surface);
-
-    color: white;
-
-    cursor: pointer;
-
-    padding: 10px 5px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    transition: .25s;
-}
-
-.color-option:hover {
-    transform: translateY(-2px);
-
-    border-color: var(--theme-color);
-
-    box-shadow:
-        0 0 14px var(--theme-color);
-}
-
-.color-circle {
-    width: 24px;
-    height: 24px;
-
-    border-radius: 50%;
-
-    background: var(--theme-color);
-
-    box-shadow:
-        0 0 12px var(--theme-color);
-}
-
-.color-option span:last-child {
-    font-size: 11px;
-
-    color: #c9cad5;
-}
-
-
-/* =====================================================
-   RESET
-   ===================================================== */
-
-.reset-btn {
-    width: 100%;
-
-    padding: 13px;
-
-    border-radius: 10px;
-
-    border:
-        1px solid var(--border);
-
-    background: transparent;
-
-    color: #d6d7df;
-
-    cursor: pointer;
-}
-
-.reset-btn:hover {
-    color: white;
-
-    border-color: var(--primary);
-
-    box-shadow:
-        0 0 15px var(--primary);
-}
-
-
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
-
-@media(max-width:850px) {
-
-    header {
-        height: auto;
-
-        padding: 16px 20px;
-
-        flex-wrap: wrap;
-    }
-
-    nav {
-        order: 3;
-
-        width: 100%;
-
-        justify-content: center;
-
-        flex-wrap: wrap;
-    }
-
-    .features {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media(max-width:550px) {
-
-    .logo {
-        font-size: 23px;
-    }
-
-    .logo-icon {
-        width: 40px;
-        height: 37px;
-    }
-
-    .customize-btn {
-        font-size: 0;
-    }
-
-    .customize-btn::before {
-        content: "🎨";
-
-        font-size: 18px;
-    }
-
-    .signin {
-        padding: 9px 13px;
-
-        font-size: 13px;
-    }
-
-    nav {
-        gap: 16px;
-    }
-
-    nav a {
-        font-size: 14px;
-    }
-
-    .hero p {
-        font-size: 16px;
-    }
-}
-
-</style>
 </head>
 
 
 <body>
 
 
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
+    <!-- =================================================
+         HEADER
+         ================================================= -->
 
-<header>
-
-    <a href="index.html" class="logo">
-
-        <div class="logo-icon"></div>
-
-        <span>Render0X</span>
-
-    </a>
+    <header>
 
 
-    <nav>
+        <!-- LOGO -->
 
-        <a href="index.html" class="active">
-            Home
-        </a>
+        <a href="/" class="logo">
 
-        <a href="about.html">
-            About
-        </a>
+            <div class="logo-icon"></div>
 
-        <a href="info.html">
-            Info
-        </a>
-
-        <a href="how-to-use.html">
-            How to Use
-        </a>
-
-    </nav>
-
-
-    <div class="header-right">
-
-        <button
-            class="customize-btn"
-            id="openCustomize">
-
-            🎨 Customize
-
-        </button>
-
-
-        <a
-            href="signin.html"
-            class="signin">
-
-            👤 Sign In
-
-        </a>
-
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     HOME
-     ===================================================== -->
-
-<main>
-
-<section class="hero">
-
-    <div class="grid"></div>
-
-    <div class="particle one"></div>
-    <div class="particle two"></div>
-    <div class="particle three"></div>
-    <div class="particle four"></div>
-    <div class="particle five"></div>
-
-
-    <div class="hero-content">
-
-
-        <div class="small-label">
-
-            🎮 GAMING • CHAT • COMMUNITY
-
-        </div>
-
-
-        <h1>
-
-            Welcome to
-
-            <br>
-
-            <span class="gradient-text">
+            <span>
                 Render0X
             </span>
 
-        </h1>
-
-
-        <p>
-
-            A place to connect, chat and
-            enjoy gaming communities.
-            Explore Render0X and discover
-            what's being built.
-
-        </p>
-
-
-        <!-- CREATOR NAME -->
-
-        <div class="creator">
-
-            Created by
-            <span>Dev</span>
-
-        </div>
-
-
-        <a
-            href="chat.html"
-            class="start-chat">
-
-            💬 Start Chatting
-
         </a>
 
 
-        <!-- FEATURES -->
+        <!-- NAVIGATION -->
 
-        <div class="features">
+        <nav>
 
+            <a href="/">
+                Home
+            </a>
 
-            <div class="feature-card">
+            <a href="/about">
+                About
+            </a>
 
-                <div class="feature-icon">
-                    💬
-                </div>
+            <a href="/info">
+                Info
+            </a>
 
-                <h2>
-                    Chat
-                </h2>
+            <a href="/how-to-use">
+                How to Use
+            </a>
 
-                <p>
-
-                    Connect through conversations
-                    and enjoy a simple chatting
-                    experience.
-
-                </p>
-
-            </div>
+        </nav>
 
 
-            <div class="feature-card">
+        <!-- AUTH AREA -->
 
-                <div class="feature-icon">
-                    🎮
-                </div>
+        <div id="authArea">
 
-                <h2>
-                    Gaming
-                </h2>
-
-                <p>
-
-                    A gaming-focused space designed
-                    for people who enjoy games and
-                    communities.
-
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    👥
-                </div>
-
-                <h2>
-                    Community
-                </h2>
-
-                <p>
-
-                    Meet people, share interests
-                    and become part of the
-                    Render0X community.
-
-                </p>
-
-            </div>
+            <a
+                href="/signin"
+                class="signin-button"
+            >
+                👤 Sign In
+            </a>
 
         </div>
 
 
-        <div class="coming-soon">
+    </header>
 
-            <h2>
-                🚀 More is Coming
-            </h2>
 
-            <p>
 
-                Render0X is under development.
-                New features and improvements
-                are being worked on to make
-                the experience better.
+    <!-- =================================================
+         MAIN
+         ================================================= -->
+
+    <main>
+
+
+        <div class="glow one"></div>
+
+        <div class="glow two"></div>
+
+
+        <div class="login-card">
+
+
+            <div class="login-icon">
+                💬
+            </div>
+
+
+            <h1>
+                Welcome to Render0X
+            </h1>
+
+
+            <p class="subtitle">
+
+                Connect. Chat. Play. Together.
+
+                <br>
+
+                Sign in to access the Render0X chat.
 
             </p>
 
+
+            <a
+                href="/chat"
+                class="chat-button"
+            >
+                💬 Open Chat
+            </a>
+
+
+            <p id="authStatus">
+                Checking sign-in status...
+            </p>
+
+
         </div>
 
 
-    </div>
-
-</section>
-
-</main>
+    </main>
 
 
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
 
-<footer>
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
 
-<p>
+    <footer>
 
-© 2026
-<span>Render0X</span>.
-All rights reserved.
+        <p>
 
-&nbsp; • &nbsp;
+            © 2026
 
-Connect. Chat. Play. Together.
+            <span>
+                Render0X
+            </span>.
 
-&nbsp; • &nbsp;
+            All rights reserved.
 
-Created by <span>Dev</span>
+            &nbsp; • &nbsp;
 
-</p>
-
-</footer>
-
-
-<!-- =====================================================
-     OVERLAY
-     ===================================================== -->
-
-<div
-    class="overlay"
-    id="overlay">
-</div>
-
-
-<!-- =====================================================
-     CUSTOMIZATION PANEL
-     ===================================================== -->
-
-<aside
-    class="custom-panel"
-    id="customPanel">
-
-
-    <div class="panel-header">
-
-        <h2>
-            ✨ Customize Render0X
-        </h2>
-
-        <button
-            class="close-panel"
-            id="closeCustomize">
-
-            ×
-
-        </button>
-
-    </div>
-
-
-    <section class="setting-section">
-
-        <h3>
-            Neon Color
-        </h3>
-
-        <p class="setting-description">
-
-            Choose your Render0X neon
-            theme. Your choice will be
-            saved for the website.
+            Connect. Chat. Play. Together.
 
         </p>
 
+    </footer>
 
-        <div class="color-grid">
 
 
-            <button
-                class="color-option"
-                data-theme="purple"
-                style="--theme-color:#d52cff;">
+    <!-- =================================================
+         AUTHENTICATION
+         ================================================= -->
 
-                <span class="color-circle"></span>
+    <script>
 
-                <span>Purple</span>
+        const authArea =
+            document.getElementById("authArea");
 
-            </button>
+        const authStatus =
+            document.getElementById("authStatus");
 
 
-            <button
-                class="color-option"
-                data-theme="blue"
-                style="--theme-color:#00b7ff;">
+        /*
+         * Check whether the Flask session
+         * currently contains a signed-in user.
+         */
 
-                <span class="color-circle"></span>
+        async function updateAuthUI() {
 
-                <span>Blue</span>
+            try {
 
-            </button>
+                const response =
+                    await fetch(
+                        "/api/me",
+                        {
+                            method: "GET",
 
+                            credentials: "include"
+                        }
+                    );
 
-            <button
-                class="color-option"
-                data-theme="green"
-                style="--theme-color:#00e676;">
 
-                <span class="color-circle"></span>
+                const data =
+                    await response.json();
 
-                <span>Green</span>
 
-            </button>
+                if (data.signed_in) {
 
 
-            <button
-                class="color-option"
-                data-theme="red"
-                style="--theme-color:#ff315c;">
+                    /*
+                     * USER IS SIGNED IN
+                     */
 
-                <span class="color-circle"></span>
+                    authArea.innerHTML = `
 
-                <span>Red</span>
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                        ">
 
-            </button>
+                            <span style="
+                                color:#bfc1cf;
+                                font-size:14px;
+                            ">
 
+                                👤 ${escapeHTML(data.username)}
 
-            <button
-                class="color-option"
-                data-theme="orange"
-                style="--theme-color:#ff8a00;">
+                            </span>
 
-                <span class="color-circle"></span>
 
-                <span>Orange</span>
+                            <button
+                                onclick="logoutUser()"
+                                class="signin-button"
+                                style="
+                                    cursor:pointer;
+                                "
+                            >
 
-            </button>
+                                🚪 Logout
 
+                            </button>
 
-            <button
-                class="color-option"
-                data-theme="pink"
-                style="--theme-color:#ff4fcf;">
+                        </div>
 
-                <span class="color-circle"></span>
+                    `;
 
-                <span>Pink</span>
 
-            </button>
+                    authStatus.innerHTML = `
 
+                        <span style="
+                            color:#63e6be;
+                        ">
 
-        </div>
+                            ✓ Signed in as
+                            <strong>
+                                ${escapeHTML(data.username)}
+                            </strong>
 
-    </section>
+                        </span>
 
+                    `;
 
-    <button
-        class="reset-btn"
-        id="resetTheme">
 
-        ↻ Reset to Render0X Default
+                } else {
 
-    </button>
 
-</aside>
+                    /*
+                     * USER IS NOT SIGNED IN
+                     */
 
+                    authArea.innerHTML = `
 
-<!-- =====================================================
-     JAVASCRIPT
-     ===================================================== -->
+                        <a
+                            href="/signin"
+                            class="signin-button"
+                        >
 
-<script>
+                            👤 Sign In
 
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
+                        </a>
 
-const root =
-    document.documentElement;
+                    `;
 
-const panel =
-    document.getElementById(
-        "customPanel"
-    );
 
-const overlay =
-    document.getElementById(
-        "overlay"
-    );
+                    authStatus.innerHTML = `
 
-const openButton =
-    document.getElementById(
-        "openCustomize"
-    );
+                        <span style="
+                            color:#999aaa;
+                        ">
 
-const closeButton =
-    document.getElementById(
-        "closeCustomize"
-    );
+                            🔒 Please sign in to use chat.
 
+                        </span>
 
-/* =====================================================
-   THEMES
-   ===================================================== */
+                    `;
 
-const themes = {
+                }
 
-    purple: {
-        primary: "#d52cff",
-        secondary: "#318cff"
-    },
 
-    blue: {
-        primary: "#00b7ff",
-        secondary: "#3867ff"
-    },
+            } catch (error) {
 
-    green: {
-        primary: "#00e676",
-        secondary: "#00bfa5"
-    },
 
-    red: {
-        primary: "#ff315c",
-        secondary: "#ff1744"
-    },
+                console.error(
+                    "Authentication check failed:",
+                    error
+                );
 
-    orange: {
-        primary: "#ff8a00",
-        secondary: "#ff3d00"
-    },
 
-    pink: {
-        primary: "#ff4fcf",
-        secondary: "#9c4dff"
-    }
+                authArea.innerHTML = `
 
-};
+                    <a
+                        href="/signin"
+                        class="signin-button"
+                    >
 
+                        👤 Sign In
 
-/* =====================================================
-   OPEN
-   ===================================================== */
+                    </a>
 
-function openPanel() {
+                `;
 
-    panel.classList.add("open");
 
-    overlay.classList.add("show");
+                authStatus.innerHTML = `
 
-}
+                    <span style="
+                        color:#999aaa;
+                    ">
 
+                        🔒 Please sign in to use chat.
 
-/* =====================================================
-   CLOSE
-   ===================================================== */
+                    </span>
 
-function closePanel() {
+                `;
 
-    panel.classList.remove("open");
-
-    overlay.classList.remove("show");
-
-}
-
-
-openButton.addEventListener(
-    "click",
-    openPanel
-);
-
-closeButton.addEventListener(
-    "click",
-    closePanel
-);
-
-overlay.addEventListener(
-    "click",
-    closePanel
-);
-
-
-/* =====================================================
-   APPLY THEME
-   ===================================================== */
-
-function applyTheme(themeName) {
-
-    const theme =
-        themes[themeName];
-
-    if (!theme) return;
-
-
-    root.style.setProperty(
-        "--primary",
-        theme.primary
-    );
-
-    root.style.setProperty(
-        "--secondary",
-        theme.secondary
-    );
-
-
-    /*
-       SAVE THEME
-
-       This is the important part.
-       Every page on the same website
-       can read this saved value.
-    */
-
-    localStorage.setItem(
-        "render0x-theme",
-        themeName
-    );
-
-}
-
-
-/* =====================================================
-   THEME BUTTONS
-   ===================================================== */
-
-document
-.querySelectorAll("[data-theme]")
-.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            applyTheme(
-                button.dataset.theme
-            );
-
-        }
-    );
-
-});
-
-
-/* =====================================================
-   RESET
-   ===================================================== */
-
-document
-.getElementById("resetTheme")
-.addEventListener(
-    "click",
-    () => {
-
-        applyTheme("purple");
-
-    }
-);
-
-
-/* =====================================================
-   LOAD SAVED THEME
-   ===================================================== */
-
-function loadTheme() {
-
-    const savedTheme =
-        localStorage.getItem(
-            "render0x-theme"
-        ) || "purple";
-
-
-    applyTheme(savedTheme);
-
-}
-
-
-loadTheme();
-
-
-/* =====================================================
-   ESCAPE
-   ===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Escape") {
-
-            closePanel();
+            }
 
         }
 
-    }
-);
 
-</script>
+
+        /*
+         * LOGOUT
+         */
+
+        async function logoutUser() {
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/logout",
+                        {
+                            method: "POST",
+
+                            credentials: "include"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    /*
+                     * Refresh the page.
+                     * The Sign In button will
+                     * appear again.
+                     */
+
+                    window.location.reload();
+
+                } else {
+
+                    alert(
+                        "Logout failed. Please try again."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                alert(
+                    "Could not connect to the server."
+                );
+
+            }
+
+        }
+
+
+
+        /*
+         * Prevent a username from being inserted
+         * as HTML.
+         */
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                text;
+
+            return div.innerHTML;
+
+        }
+
+
+
+        /*
+         * Run authentication check
+         * when the page loads.
+         */
+
+        updateAuthUI();
+
+    </script>
+
 
 </body>
+
 </html>
