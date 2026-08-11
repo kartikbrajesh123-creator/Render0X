@@ -1,151 +1,115 @@
 import os
-import re
+import json
+import hashlib
+import secrets
 
-from flask import Flask, request, jsonify, session, redirect, send_file
-from supabase import create_client, Client
-from dotenv import load_dotenv
+from flask import Flask, render_template, request, jsonify, session, redirect
 
-load_dotenv()
 
 app = Flask(__name__)
 
-# ============================================================
+# =========================================================
 # FLASK SESSION
-# ============================================================
+# =========================================================
 
-app.secret_key = os.environ.get("FLASK_SECRET_KEY")
-
-if not app.secret_key:
-    raise RuntimeError("FLASK_SECRET_KEY is missing")
-
-
-# ============================================================
-# SUPABASE
-# ============================================================
-
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_PUBLISHABLE_KEY = os.environ.get("SUPABASE_PUBLISHABLE_KEY")
-SUPABASE_SECRET_KEY = os.environ.get("SUPABASE_SECRET_KEY")
-
-if not SUPABASE_URL:
-    raise RuntimeError("SUPABASE_URL is missing")
-
-if not SUPABASE_PUBLISHABLE_KEY:
-    raise RuntimeError("SUPABASE_PUBLISHABLE_KEY is missing")
-
-if not SUPABASE_SECRET_KEY:
-    raise RuntimeError("SUPABASE_SECRET_KEY is missing")
-
-
-supabase: Client = create_client(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-)
-
-admin_supabase: Client = create_client(
-    SUPABASE_URL,
-    SUPABASE_SECRET_KEY
+app.secret_key = os.environ.get(
+    "FLASK_SECRET_KEY",
+    "render0x-development-secret-change-this"
 )
 
 
-# ============================================================
-# USERNAME
-# ============================================================
+# =========================================================
+# USER DATABASE
+# =========================================================
+
+USERS_FILE = "users.json"
+
+
+def load_users():
+    if not os.path.exists(USERS_FILE):
+        return {}
+
+    try:
+        with open(USERS_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_users(users):
+    with open(USERS_FILE, "w", encoding="utf-8") as file:
+        json.dump(users, file, indent=4)
+
+
+# =========================================================
+# PASSWORD HASHING
+# =========================================================
+
+def hash_password(password, salt=None):
+
+    if salt is None:
+        salt = secrets.token_hex(16)
+
+    password_hash = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        salt.encode("utf-8"),
+        100000
+    ).hex()
+
+    return salt, password_hash
+
+
+def check_password(password, salt, stored_hash):
+
+    _, password_hash = hash_password(password, salt)
+
+    return secrets.compare_digest(
+        password_hash,
+        stored_hash
+    )
+
+
+# =========================================================
+# USERNAME VALIDATION
+# =========================================================
 
 def valid_username(username):
 
-    return re.fullmatch(
-        r"[A-Za-z0-9_]{3,20}",
-        username
-    ) is not None
+    if not 3 <= len(username) <= 20:
+        return False
+
+    return all(
+        character.isalnum() or character == "_"
+        for character in username
+    )
 
 
-def username_to_email(username):
-
-    username = username.lower().strip()
-
-    return f"{username}@users.render0x.local"
-
-
-# ============================================================
-# HTML PAGES
-# ============================================================
+# =========================================================
+# HOME
+# =========================================================
 
 @app.route("/")
-def index():
+def home():
+    return render_template("index.html")
 
-    return send_file("index.html")
 
-
-@app.route("/signin")
-def signin_page():
-
-    if session.get("access_token"):
-        return redirect("/chat")
-
-    return send_file("signin.html")
-
+# =========================================================
+# SIGN UP PAGE
+# =========================================================
 
 @app.route("/signup")
 def signup_page():
 
-    if session.get("access_token"):
+    if session.get("username"):
         return redirect("/chat")
 
-    return send_file("signup.html")
+    return render_template("signup.html")
 
 
-@app.route("/chat")
-def chat_page():
-
-    access_token = session.get("access_token")
-
-    # Not signed in = NO CHAT
-    if not access_token:
-        return redirect("/signin")
-
-    try:
-
-        response = supabase.auth.get_user(access_token)
-
-        if not response or not response.user:
-
-            session.clear()
-
-            return redirect("/signin")
-
-    except Exception as error:
-
-        print("CHAT AUTH ERROR:", error)
-
-        session.clear()
-
-        return redirect("/signin")
-
-    return send_file("chat.html")
-
-
-@app.route("/about")
-def about_page():
-
-    return send_file("about.html")
-
-
-@app.route("/info")
-def info_page():
-
-    return send_file("info.html")
-
-
-@app.route("/how-to-use")
-def how_to_use_page():
-
-    return send_file("how-to-use.html")
-
-
-# ============================================================
-# SIGN UP
-# ============================================================
+# =========================================================
+# SIGN UP API
+# =========================================================
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -153,12 +117,10 @@ def signup():
     data = request.get_json(silent=True)
 
     if not data:
-
         return jsonify({
             "success": False,
             "message": "Invalid request."
         }), 400
-
 
     username = str(
         data.get("username", "")
@@ -168,15 +130,21 @@ def signup():
         data.get("password", "")
     )
 
+    # -----------------------------
+    # Validate username
+    # -----------------------------
 
     if not valid_username(username):
 
         return jsonify({
             "success": False,
             "message":
-                "Username must be 3-20 characters and use only letters, numbers or _."
+                "Username must be 3-20 characters and contain only letters, numbers or _."
         }), 400
 
+    # -----------------------------
+    # Validate password
+    # -----------------------------
 
     if len(password) < 6:
 
@@ -186,50 +154,78 @@ def signup():
                 "Password must be at least 6 characters."
         }), 400
 
+    # -----------------------------
+    # Load users
+    # -----------------------------
 
-    email = username_to_email(username)
+    users = load_users()
 
+    username_key = username.lower()
 
-    try:
+    # -----------------------------
+    # Check existing account
+    # -----------------------------
 
-        response = admin_supabase.auth.admin.create_user({
-            "email": email,
-            "password": password,
-            "email_confirm": True,
-            "user_metadata": {
-                "username": username
-            }
-        })
-
-
-        if not response.user:
-
-            return jsonify({
-                "success": False,
-                "message": "Could not create account."
-            }), 400
-
-
-        return jsonify({
-            "success": True,
-            "message": "Account created successfully."
-        })
-
-
-    except Exception as error:
-
-        print("SIGNUP ERROR:", error)
+    if username_key in users:
 
         return jsonify({
             "success": False,
             "message":
-                "Username may already be registered."
-        }), 400
+                "Username already exists."
+        }), 409
+
+    # -----------------------------
+    # Hash password
+    # -----------------------------
+
+    salt, password_hash = hash_password(password)
+
+    # -----------------------------
+    # Create account
+    # -----------------------------
+
+    users[username_key] = {
+
+        "username": username,
+
+        "salt": salt,
+
+        "password_hash": password_hash
+
+    }
+
+    save_users(users)
+
+    # -----------------------------
+    # Automatically sign user in
+    # -----------------------------
+
+    session.clear()
+
+    session["username"] = username
+
+    return jsonify({
+        "success": True,
+        "username": username
+    })
 
 
-# ============================================================
-# SIGN IN
-# ============================================================
+# =========================================================
+# SIGN IN PAGE
+# =========================================================
+
+@app.route("/signin")
+def signin_page():
+
+    if session.get("username"):
+        return redirect("/chat")
+
+    return render_template("signin.html")
+
+
+# =========================================================
+# SIGN IN API
+# =========================================================
 
 @app.route("/api/signin", methods=["POST"])
 def signin():
@@ -243,7 +239,6 @@ def signin():
             "message": "Invalid request."
         }), 400
 
-
     username = str(
         data.get("username", "")
     ).strip()
@@ -252,244 +247,193 @@ def signin():
         data.get("password", "")
     )
 
-
-    if not valid_username(username):
+    if not username or not password:
 
         return jsonify({
             "success": False,
-            "message": "Invalid username."
+            "message":
+                "Please enter username and password."
         }), 400
 
+    users = load_users()
 
-    if not password:
+    username_key = username.lower()
 
-        return jsonify({
-            "success": False,
-            "message": "Please enter your password."
-        }), 400
+    user = users.get(username_key)
 
+    # -----------------------------
+    # User doesn't exist
+    # -----------------------------
 
-    email = username_to_email(username)
-
-
-    try:
-
-        response = supabase.auth.sign_in_with_password({
-            "email": email,
-            "password": password
-        })
-
-
-        if not response.session:
-
-            return jsonify({
-                "success": False,
-                "message": "Invalid username or password."
-            }), 401
-
-
-        session["access_token"] = \
-            response.session.access_token
-
-        session["refresh_token"] = \
-            response.session.refresh_token
-
-        session["username"] = username
-
-        session.permanent = True
-
-
-        return jsonify({
-            "success": True,
-            "username": username
-        })
-
-
-    except Exception as error:
-
-        print("SIGNIN ERROR:", error)
+    if not user:
 
         return jsonify({
             "success": False,
-            "message": "Invalid username or password."
+            "message":
+                "Invalid username or password."
         }), 401
 
+    # -----------------------------
+    # Check password
+    # -----------------------------
 
-# ============================================================
+    if not check_password(
+        password,
+        user["salt"],
+        user["password_hash"]
+    ):
+
+        return jsonify({
+            "success": False,
+            "message":
+                "Invalid username or password."
+        }), 401
+
+    # -----------------------------
+    # Create Flask session
+    # -----------------------------
+
+    session.clear()
+
+    session["username"] = user["username"]
+
+    return jsonify({
+        "success": True,
+        "username": user["username"]
+    })
+
+
+# =========================================================
 # CURRENT USER
-# ============================================================
+# =========================================================
 
 @app.route("/api/me")
 def current_user():
 
-    access_token = session.get("access_token")
+    username = session.get("username")
 
-    if not access_token:
-
-        return jsonify({
-            "signed_in": False
-        })
-
-
-    try:
-
-        response = supabase.auth.get_user(
-            access_token
-        )
-
-
-        if not response or not response.user:
-
-            session.clear()
-
-            return jsonify({
-                "signed_in": False
-            })
-
-
-        username = session.get("username")
-
-
-        # Backup: get username from Supabase metadata
-        if not username:
-
-            username = response.user.user_metadata.get(
-                "username"
-            )
-
-
-        return jsonify({
-            "signed_in": True,
-            "username": username
-        })
-
-
-    except Exception as error:
-
-        print("ME ERROR:", error)
-
-        session.clear()
+    if not username:
 
         return jsonify({
             "signed_in": False
         })
 
+    return jsonify({
+        "signed_in": True,
+        "username": username
+    })
 
-# ============================================================
+
+# =========================================================
+# CHAT PAGE
+# =========================================================
+
+@app.route("/chat")
+def chat_page():
+
+    username = session.get("username")
+
+    # ---------------------------------
+    # NOT SIGNED IN = NO CHAT
+    # ---------------------------------
+
+    if not username:
+        return redirect("/signin")
+
+    return render_template(
+        "chat.html",
+        username=username
+    )
+
+
+# =========================================================
+# CHAT API
+# =========================================================
+
+@app.route("/api/chat", methods=["POST"])
+def chat_api():
+
+    username = session.get("username")
+
+    # ---------------------------------
+    # Protect API
+    # ---------------------------------
+
+    if not username:
+
+        return jsonify({
+            "success": False,
+            "message":
+                "You must sign in first."
+        }), 401
+
+    data = request.get_json(silent=True) or {}
+
+    message = str(
+        data.get("message", "")
+    ).strip()
+
+    if not message:
+
+        return jsonify({
+            "success": False,
+            "message":
+                "Message cannot be empty."
+        }), 400
+
+    # ---------------------------------
+    # TEMPORARY CHAT RESPONSE
+    # ---------------------------------
+    #
+    # Replace this section later
+    # with your real AI/chat system.
+    #
+
+    return jsonify({
+        "success": True,
+        "username": username,
+        "reply":
+            "Your login is working! "
+            "Now connect your real chat/AI backend here."
+    })
+
+
+# =========================================================
 # LOGOUT
-# ============================================================
+# =========================================================
 
 @app.route("/api/logout", methods=["POST"])
 def logout():
 
-    access_token = session.get("access_token")
-
-
-    try:
-
-        if access_token:
-
-            # Sign out the Supabase session
-            supabase.auth.sign_out()
-
-
-    except Exception as error:
-
-        print("LOGOUT ERROR:", error)
-
-
-    finally:
-
-        # Destroy Flask login session
-        session.clear()
-
+    session.clear()
 
     return jsonify({
         "success": True
     })
 
 
-# ============================================================
-# CHAT API
-# ============================================================
+# =========================================================
+# SIMPLE PAGES
+# =========================================================
 
-@app.route("/api/chat", methods=["POST"])
-def chat_api():
-
-    access_token = session.get("access_token")
-
-
-    if not access_token:
-
-        return jsonify({
-            "success": False,
-            "message": "You must sign in first."
-        }), 401
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
-    try:
-
-        user_response = supabase.auth.get_user(
-            access_token
-        )
+@app.route("/info")
+def info():
+    return render_template("info.html")
 
 
-        if not user_response or not user_response.user:
-
-            session.clear()
-
-            return jsonify({
-                "success": False,
-                "message":
-                    "Your session has expired. Please sign in again."
-            }), 401
+@app.route("/how-to-use")
+def how_to_use():
+    return render_template("how-to-use.html")
 
 
-    except Exception:
-
-        session.clear()
-
-        return jsonify({
-            "success": False,
-            "message":
-                "Your session has expired. Please sign in again."
-        }), 401
-
-
-    data = request.get_json(
-        silent=True
-    ) or {}
-
-
-    message = str(
-        data.get("message", "")
-    ).strip()
-
-
-    if not message:
-
-        return jsonify({
-            "success": False,
-            "message": "Message cannot be empty."
-        }), 400
-
-
-    # ========================================================
-    # YOUR REAL AI CHAT LOGIC GOES HERE
-    # ========================================================
-
-    return jsonify({
-        "success": True,
-        "reply":
-            "Authentication is working. Connect your AI backend here.",
-        "username":
-            session.get("username")
-    })
-
-
-# ============================================================
+# =========================================================
 # RUN
-# ============================================================
+# =========================================================
 
 if __name__ == "__main__":
 
