@@ -18,24 +18,17 @@
 
         body {
             min-height: 100vh;
-
             font-family: Arial, Helvetica, sans-serif;
-
             background: #030510;
             color: white;
-
             display: flex;
             flex-direction: column;
         }
 
-
-        /* =================================================
-           HEADER
-           ================================================= */
+        /* ================= HEADER ================= */
 
         header {
             height: 90px;
-
             padding: 0 5%;
 
             display: flex;
@@ -43,27 +36,22 @@
             justify-content: space-between;
 
             border-bottom: 1px solid rgba(120, 90, 255, 0.2);
-
             background: rgba(3, 5, 16, 0.96);
         }
 
-
-        /* LOGO */
+        /* ================= LOGO ================= */
 
         .logo {
             display: flex;
             align-items: center;
-
             gap: 12px;
 
             text-decoration: none;
-
             color: white;
 
             font-size: 29px;
             font-weight: bold;
         }
-
 
         .logo-icon {
             width: 46px;
@@ -71,7 +59,6 @@
 
             border: 3px solid #a83cff;
             border-right-color: #318cff;
-
             border-radius: 13px;
 
             display: flex;
@@ -85,17 +72,13 @@
             position: relative;
         }
 
-
         .logo-icon::before {
             content: "•••";
 
             color: #9d52ff;
-
             font-size: 18px;
-
             letter-spacing: 3px;
         }
-
 
         .logo-icon::after {
             content: "";
@@ -113,7 +96,6 @@
             transform: skew(-25deg);
         }
 
-
         .logo span {
             background:
                 linear-gradient(
@@ -127,17 +109,13 @@
             -webkit-text-fill-color: transparent;
         }
 
-
-        /* NAVIGATION */
+        /* ================= NAVIGATION ================= */
 
         nav {
             display: flex;
-
             align-items: center;
-
             gap: 35px;
         }
-
 
         nav a {
             color: #d5d5df;
@@ -149,18 +127,13 @@
             transition: 0.25s;
         }
 
-
         nav a:hover {
             color: #b14cff;
         }
 
-
-        /* =================================================
-           SIGN IN / USER BUTTON
-           ================================================= */
+        /* ================= AUTH BUTTON ================= */
 
         .signin-button {
-
             padding: 11px 22px;
 
             border-radius: 9px;
@@ -191,28 +164,53 @@
             white-space: nowrap;
         }
 
-
         .signin-button:hover {
-
             transform: translateY(-2px);
 
             box-shadow:
                 0 0 22px rgba(180, 50, 255, 0.5);
         }
 
+        /* ================= SIGNED-IN USER ================= */
 
-        /* =================================================
-           MAIN
-           ================================================= */
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .signed-user {
+            padding: 10px 16px;
+
+            border-radius: 20px;
+
+            color: #cfcfe0;
+
+            border: 1px solid rgba(170, 50, 255, 0.35);
+
+            background: rgba(100, 30, 255, 0.06);
+
+            font-size: 14px;
+
+            white-space: nowrap;
+        }
+
+        .signed-user strong {
+            color: #b95cff;
+        }
+
+        .logout-button {
+            cursor: pointer;
+        }
+
+        /* ================= MAIN ================= */
 
         main {
-
             flex: 1;
 
             display: flex;
 
             justify-content: center;
-
             align-items: center;
 
             text-align: center;
@@ -236,13 +234,9 @@
                 );
         }
 
-
-        /* =================================================
-           DECORATIVE GLOW
-           ================================================= */
+        /* ================= GLOW ================= */
 
         .glow {
-
             position: absolute;
 
             width: 280px;
@@ -262,38 +256,27 @@
                 rgba(50, 120, 255, 0.05);
         }
 
-
         .glow.one {
-
             left: -120px;
-
             top: 15%;
         }
 
-
         .glow.two {
-
             right: -120px;
-
             bottom: 10%;
 
             border-color:
                 rgba(40, 130, 255, 0.18);
         }
 
-
-        /* =================================================
-           MAIN CARD
-           ================================================= */
+        /* ================= MAIN CARD ================= */
 
         .login-card {
-
             position: relative;
 
             z-index: 2;
 
             width: 600px;
-
             max-width: 90%;
 
             padding: 50px 40px;
@@ -317,9 +300,9 @@
             backdrop-filter: blur(8px);
         }
 
+        /* ================= MAIN ICON ================= */
 
         .login-icon {
-
             width: 90px;
             height: 90px;
 
@@ -330,7 +313,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
             font-size: 43px;
@@ -359,13 +341,9 @@
                 rgba(40, 120, 255, 0.2);
         }
 
-
-        /* =================================================
-           TEXT
-           ================================================= */
+        /* ================= TEXT ================= */
 
         .login-card h1 {
-
             font-size: 48px;
 
             margin-bottom: 16px;
@@ -380,13 +358,10 @@
                 );
 
             -webkit-background-clip: text;
-
             -webkit-text-fill-color: transparent;
         }
 
-
         .subtitle {
-
             color: #999aaa;
 
             font-size: 17px;
@@ -396,13 +371,9 @@
             margin-bottom: 25px;
         }
 
-
-        /* =================================================
-           CHAT BUTTON
-           ================================================= */
+        /* ================= CHAT BUTTON ================= */
 
         .chat-button {
-
             display: inline-block;
 
             margin-top: 10px;
@@ -423,9 +394,7 @@
             transition: 0.25s;
         }
 
-
         .chat-button:hover {
-
             background:
                 linear-gradient(
                     90deg,
@@ -441,13 +410,9 @@
                 translateY(-2px);
         }
 
-
-        /* =================================================
-           STATUS
-           ================================================= */
+        /* ================= STATUS ================= */
 
         #authStatus {
-
             margin-top: 22px;
 
             min-height: 20px;
@@ -457,13 +422,9 @@
             font-size: 14px;
         }
 
-
-        /* =================================================
-           FOOTER
-           ================================================= */
+        /* ================= FOOTER ================= */
 
         footer {
-
             border-top:
                 1px solid
                 rgba(120, 90, 255, 0.18);
@@ -475,29 +436,21 @@
             background: #02040c;
         }
 
-
         footer p {
-
             color: #707487;
 
             font-size: 14px;
         }
 
-
         footer span {
-
             color: #a84cff;
         }
 
-
-        /* =================================================
-           MOBILE
-           ================================================= */
+        /* ================= MOBILE ================= */
 
         @media (max-width: 800px) {
 
             header {
-
                 height: auto;
 
                 padding: 18px 20px;
@@ -507,9 +460,7 @@
                 gap: 18px;
             }
 
-
             nav {
-
                 order: 3;
 
                 width: 100%;
@@ -521,85 +472,73 @@
                 flex-wrap: wrap;
             }
 
-
             .logo {
-
                 font-size: 24px;
             }
 
-
             .signin-button {
-
                 font-size: 14px;
 
                 padding: 9px 15px;
             }
 
+            .signed-user {
+                font-size: 13px;
 
-            .login-card {
-
-                padding:
-                    40px 25px;
+                padding: 8px 12px;
             }
 
+            .user-area {
+                gap: 7px;
+            }
+
+            .login-card {
+                padding: 40px 25px;
+            }
 
             .login-card h1 {
-
                 font-size: 38px;
             }
 
-
             .subtitle {
-
                 font-size: 15px;
             }
         }
 
-
         @media (max-width: 550px) {
 
             header {
-
                 gap: 12px;
             }
 
-
             .logo {
-
                 font-size: 23px;
             }
 
-
             .logo-icon {
-
                 width: 40px;
-
                 height: 37px;
             }
 
-
             nav {
-
                 gap: 16px;
             }
 
-
             nav a {
-
                 font-size: 14px;
             }
 
-
             .login-card {
-
-                padding:
-                    30px 20px;
+                padding: 30px 20px;
             }
 
-
             .login-card h1 {
-
                 font-size: 30px;
+            }
+
+            .user-area {
+                flex-direction: column;
+                align-items: flex-end;
             }
         }
 
@@ -611,12 +550,9 @@
 <body>
 
 
-    <!-- =================================================
-         HEADER
-         ================================================= -->
+    <!-- ================= HEADER ================= -->
 
     <header>
-
 
         <!-- LOGO -->
 
@@ -667,17 +603,12 @@
 
         </div>
 
-
     </header>
 
 
-
-    <!-- =================================================
-         MAIN
-         ================================================= -->
+    <!-- ================= MAIN ================= -->
 
     <main>
-
 
         <div class="glow one"></div>
 
@@ -685,7 +616,6 @@
 
 
         <div class="login-card">
-
 
             <div class="login-icon">
                 💬
@@ -703,34 +633,38 @@
 
                 <br>
 
-                Sign in to access the Render0X chat.
+                <span id="mainMessage">
+                    Sign in to access the Render0X chat.
+                </span>
 
             </p>
 
 
+            <!-- THIS BUTTON CHANGES AUTOMATICALLY -->
+
             <a
-                href="/chat"
+                id="chatButton"
+                href="/signin"
                 class="chat-button"
             >
-                💬 Open Chat
+                🔐 Sign In to Open Chat
             </a>
 
 
+            <!-- SIGN-IN STATUS -->
+
             <p id="authStatus">
-                Checking sign-in status...
+
+                🔒 Please sign in to use chat.
+
             </p>
 
-
         </div>
-
 
     </main>
 
 
-
-    <!-- =================================================
-         FOOTER
-         ================================================= -->
+    <!-- ================= FOOTER ================= -->
 
     <footer>
 
@@ -753,10 +687,7 @@
     </footer>
 
 
-
-    <!-- =================================================
-         AUTHENTICATION
-         ================================================= -->
+    <!-- ================= AUTHENTICATION ================= -->
 
     <script>
 
@@ -766,11 +697,31 @@
         const authStatus =
             document.getElementById("authStatus");
 
+        const chatButton =
+            document.getElementById("chatButton");
 
-        /*
-         * Check whether the Flask session
-         * currently contains a signed-in user.
-         */
+        const mainMessage =
+            document.getElementById("mainMessage");
+
+
+        /* ===============================
+           ESCAPE USERNAME
+           =============================== */
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+        }
+
+
+        /* ===============================
+           CHECK LOGIN
+           =============================== */
 
         async function updateAuthUI() {
 
@@ -781,51 +732,46 @@
                         "/api/me",
                         {
                             method: "GET",
-
                             credentials: "include"
                         }
                     );
-
 
                 const data =
                     await response.json();
 
 
+                /* ===============================
+                   SIGNED IN
+                   =============================== */
+
                 if (data.signed_in) {
 
+                    const username =
+                        escapeHTML(
+                            data.username || "User"
+                        );
 
-                    /*
-                     * USER IS SIGNED IN
-                     */
+
+                    /* HEADER */
 
                     authArea.innerHTML = `
 
-                        <div style="
-                            display:flex;
-                            align-items:center;
-                            gap:12px;
-                        ">
+                        <div class="user-area">
 
-                            <span style="
-                                color:#bfc1cf;
-                                font-size:14px;
-                            ">
+                            <div class="signed-user">
 
-                                👤 ${escapeHTML(data.username)}
+                                ✓ Signed in as
+                                <strong>
+                                    ${username}
+                                </strong>
 
-                            </span>
-
+                            </div>
 
                             <button
                                 onclick="logoutUser()"
-                                class="signin-button"
-                                style="
-                                    cursor:pointer;
-                                "
+                                class="signin-button logout-button"
                             >
-
                                 🚪 Logout
-
                             </button>
 
                         </div>
@@ -833,28 +779,43 @@
                     `;
 
 
+                    /* MAIN */
+
+                    mainMessage.textContent =
+                        "You are signed in and can access the Render0X chat.";
+
+
+                    /* CHAT BUTTON */
+
+                    chatButton.href = "/chat";
+
+                    chatButton.innerHTML =
+                        "💬 Open Chat";
+
+
+                    /* STATUS */
+
                     authStatus.innerHTML = `
 
-                        <span style="
-                            color:#63e6be;
-                        ">
+                        <span style="color:#63e6be;">
 
                             ✓ Signed in as
                             <strong>
-                                ${escapeHTML(data.username)}
+                                ${username}
                             </strong>
 
                         </span>
 
                     `;
 
+                }
 
-                } else {
 
+                /* ===============================
+                   NOT SIGNED IN
+                   =============================== */
 
-                    /*
-                     * USER IS NOT SIGNED IN
-                     */
+                else {
 
                     authArea.innerHTML = `
 
@@ -862,19 +823,26 @@
                             href="/signin"
                             class="signin-button"
                         >
-
                             👤 Sign In
-
                         </a>
 
                     `;
 
 
+                    mainMessage.textContent =
+                        "Sign in to access the Render0X chat.";
+
+
+                    chatButton.href =
+                        "/signin";
+
+                    chatButton.innerHTML =
+                        "🔐 Sign In to Open Chat";
+
+
                     authStatus.innerHTML = `
 
-                        <span style="
-                            color:#999aaa;
-                        ">
+                        <span style="color:#999aaa;">
 
                             🔒 Please sign in to use chat.
 
@@ -884,9 +852,14 @@
 
                 }
 
+            }
 
-            } catch (error) {
 
+            /* ===============================
+               SERVER ERROR
+               =============================== */
+
+            catch (error) {
 
                 console.error(
                     "Authentication check failed:",
@@ -894,25 +867,34 @@
                 );
 
 
+                /* Treat as not signed in */
+
                 authArea.innerHTML = `
 
                     <a
                         href="/signin"
                         class="signin-button"
                     >
-
                         👤 Sign In
-
                     </a>
 
                 `;
 
 
+                mainMessage.textContent =
+                    "Sign in to access the Render0X chat.";
+
+
+                chatButton.href =
+                    "/signin";
+
+                chatButton.innerHTML =
+                    "🔐 Sign In to Open Chat";
+
+
                 authStatus.innerHTML = `
 
-                    <span style="
-                        color:#999aaa;
-                    ">
+                    <span style="color:#999aaa;">
 
                         🔒 Please sign in to use chat.
 
@@ -925,22 +907,19 @@
         }
 
 
-
-        /*
-         * LOGOUT
-         */
+        /* ===============================
+           LOGOUT
+           =============================== */
 
         async function logoutUser() {
 
             try {
-
 
                 const response =
                     await fetch(
                         "/api/logout",
                         {
                             method: "POST",
-
                             credentials: "include"
                         }
                     );
@@ -953,14 +932,15 @@
                 if (data.success) {
 
                     /*
-                     * Refresh the page.
-                     * The Sign In button will
-                     * appear again.
+                     * Go back to the normal
+                     * signed-out home page.
                      */
 
-                    window.location.reload();
+                    window.location.href = "/";
 
-                } else {
+                }
+
+                else {
 
                     alert(
                         "Logout failed. Please try again."
@@ -968,15 +948,14 @@
 
                 }
 
+            }
 
-            } catch (error) {
-
+            catch (error) {
 
                 console.error(
                     "Logout error:",
                     error
                 );
-
 
                 alert(
                     "Could not connect to the server."
@@ -987,30 +966,9 @@
         }
 
 
-
-        /*
-         * Prevent a username from being inserted
-         * as HTML.
-         */
-
-        function escapeHTML(text) {
-
-            const div =
-                document.createElement("div");
-
-            div.textContent =
-                text;
-
-            return div.innerHTML;
-
-        }
-
-
-
-        /*
-         * Run authentication check
-         * when the page loads.
-         */
+        /* ===============================
+           START
+           =============================== */
 
         updateAuthUI();
 
