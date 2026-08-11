@@ -2,338 +2,320 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Render0X - Create Account</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<title>Render0X - Sign Up</title>
 
-        body {
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #030510;
-            color: white;
+<style>
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-            overflow: hidden;
-        }
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
 
-        body::before {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            left: -200px;
-            top: 10%;
-            background: rgba(150, 30, 255, 0.15);
-            filter: blur(100px);
-            border-radius: 50%;
-        }
+    background: #030510;
+    color: white;
 
-        body::after {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            right: -200px;
-            bottom: 0;
-            background: rgba(30, 100, 255, 0.15);
-            filter: blur(100px);
-            border-radius: 50%;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .signup-box {
-            position: relative;
-            z-index: 2;
+.signup-box {
 
-            width: 400px;
-            max-width: 90%;
+    width: 400px;
+    max-width: 90%;
 
-            padding: 40px;
+    padding: 40px;
 
-            background: rgba(8, 11, 26, 0.95);
+    background: rgba(8, 11, 26, 0.95);
 
-            border: 1px solid rgba(150, 70, 255, 0.35);
+    border: 1px solid rgba(150, 70, 255, 0.35);
 
-            border-radius: 20px;
+    border-radius: 20px;
 
-            box-shadow:
-                0 0 30px rgba(150, 40, 255, 0.15),
-                0 0 70px rgba(40, 100, 255, 0.08);
-        }
+    box-shadow:
+        0 0 30px rgba(150, 40, 255, 0.15),
+        0 0 70px rgba(40, 100, 255, 0.08);
+}
 
-        .logo {
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 8px;
+.logo {
 
-            background:
-                linear-gradient(
-                    90deg,
-                    white,
-                    #a63dff,
-                    #318cff
-                );
+    text-align: center;
 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    font-size: 32px;
 
-        .subtitle {
-            text-align: center;
-            color: #888ca0;
-            margin-bottom: 32px;
-            font-size: 14px;
-        }
+    font-weight: bold;
 
-        label {
-            display: block;
-            color: #cfd0dc;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
+    margin-bottom: 8px;
 
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 20px;
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #a63dff,
+            #318cff
+        );
 
-            border-radius: 10px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-            border: 1px solid rgba(130, 90, 255, 0.3);
+.subtitle {
 
-            background: #050816;
-            color: white;
+    text-align: center;
 
-            outline: none;
-            font-size: 15px;
+    color: #888ca0;
 
-            transition: 0.2s;
-        }
+    margin-bottom: 30px;
 
-        input:focus {
-            border-color: #a33cff;
+    font-size: 14px;
+}
 
-            box-shadow:
-                0 0 15px rgba(160, 50, 255, 0.2);
-        }
+label {
 
-        .signup-button {
-            width: 100%;
+    display: block;
 
-            padding: 14px;
+    color: #cfd0dc;
 
-            border: none;
-            border-radius: 10px;
+    font-size: 14px;
 
-            color: white;
+    margin-bottom: 8px;
+}
 
-            font-size: 16px;
-            font-weight: bold;
+input {
 
-            cursor: pointer;
+    width: 100%;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    #8b2cff,
-                    #327dff
-                );
+    padding: 14px;
 
-            box-shadow:
-                0 0 18px rgba(130, 50, 255, 0.25);
+    margin-bottom: 20px;
 
-            transition: 0.25s;
-        }
+    border-radius: 10px;
 
-        .signup-button:hover {
-            transform: translateY(-2px);
+    border: 1px solid rgba(130, 90, 255, 0.3);
 
-            box-shadow:
-                0 0 28px rgba(130, 50, 255, 0.45);
-        }
+    background: #050816;
 
-        .signup-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
+    color: white;
 
-        .status {
-            min-height: 22px;
+    outline: none;
 
-            margin-top: 15px;
+    font-size: 15px;
+}
 
-            text-align: center;
+input:focus {
 
-            font-size: 14px;
-        }
+    border-color: #a33cff;
 
-        .signin-link {
-            display: block;
+    box-shadow:
+        0 0 15px rgba(160, 50, 255, 0.2);
+}
 
-            text-align: center;
+.signup-button {
 
-            margin-top: 22px;
+    width: 100%;
 
-            color: #85899d;
+    padding: 14px;
 
-            text-decoration: none;
+    border: none;
 
-            font-size: 14px;
-        }
+    border-radius: 10px;
 
-        .signin-link:hover {
-            color: #b14cff;
-        }
+    color: white;
 
-        .back {
-            display: block;
+    font-size: 16px;
 
-            text-align: center;
+    font-weight: bold;
 
-            margin-top: 15px;
+    cursor: pointer;
 
-            color: #85899d;
+    background:
+        linear-gradient(
+            90deg,
+            #8b2cff,
+            #327dff
+        );
+}
 
-            text-decoration: none;
+.signup-button:disabled {
 
-            font-size: 14px;
-        }
+    opacity: 0.6;
 
-        .back:hover {
-            color: #b14cff;
-        }
-    </style>
+    cursor: not-allowed;
+}
+
+.message {
+
+    display: none;
+
+    margin-bottom: 18px;
+
+    padding: 11px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+.back {
+
+    display: block;
+
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #85899d;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.back:hover {
+    color: #b14cff;
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <div class="signup-box">
+<div class="signup-box">
 
-        <div class="logo">
-            Render0X
-        </div>
-
-        <div class="subtitle">
-            Create your Render0X account
-        </div>
-
-        <form id="signupForm">
-
-            <label for="username">
-                Username
-            </label>
-
-            <input
-                type="text"
-                id="username"
-                placeholder="Choose a username"
-                autocomplete="username"
-                maxlength="20"
-                required
-            >
-
-            <label for="password">
-                Password
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Create a password"
-                autocomplete="new-password"
-                required
-            >
-
-            <label for="confirmPassword">
-                Confirm Password
-            </label>
-
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Enter password again"
-                autocomplete="new-password"
-                required
-            >
-
-            <button
-                type="submit"
-                id="signupButton"
-                class="signup-button"
-            >
-                🚀 Create Account
-            </button>
-
-        </form>
-
-        <div id="status" class="status"></div>
-
-        <a href="/signin" class="signin-link">
-            Already have an account? Sign In
-        </a>
-
-        <a href="/" class="back">
-            ← Back to Home
-        </a>
-
+    <div class="logo">
+        Render0X
     </div>
 
+    <div class="subtitle">
+        Create your Render0X account
+    </div>
 
-    <script>
+    <div id="message" class="message"></div>
 
-        const form = document.getElementById("signupForm");
-        const button = document.getElementById("signupButton");
-        const status = document.getElementById("status");
+    <form id="signupForm">
 
-        form.addEventListener("submit", async function(event) {
+        <label>
+            Username
+        </label>
 
-            event.preventDefault();
+        <input
+            id="username"
+            type="text"
+            placeholder="Choose a username"
+            maxlength="20"
+            required
+        >
 
-            status.textContent = "";
+        <label>
+            Password
+        </label>
 
-            const username =
-                document.getElementById("username")
-                    .value
-                    .trim();
+        <input
+            id="password"
+            type="password"
+            placeholder="Choose a password"
+            minlength="6"
+            required
+        >
 
-            const password =
-                document.getElementById("password")
-                    .value;
+        <label>
+            Confirm Password
+        </label>
 
-            const confirmPassword =
-                document.getElementById("confirmPassword")
-                    .value;
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Enter password again"
+            required
+        >
+
+        <button
+            id="signupButton"
+            class="signup-button"
+            type="submit"
+        >
+            Create Account
+        </button>
+
+    </form>
+
+    <a href="/signin" class="back">
+        Already have an account? Sign In
+    </a>
+
+    <a href="/" class="back">
+        ← Back to Home
+    </a>
+
+</div>
 
 
-            if (password !== confirmPassword) {
+<script>
 
-                status.textContent =
-                    "❌ Passwords do not match.";
+const form =
+    document.getElementById("signupForm");
 
-                return;
-            }
+const button =
+    document.getElementById("signupButton");
+
+const message =
+    document.getElementById("message");
 
 
-            button.disabled = true;
-            button.textContent = "Creating Account...";
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        message.style.display = "none";
+
+        const username =
+            document.getElementById("username")
+            .value.trim();
+
+        const password =
+            document.getElementById("password")
+            .value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword")
+            .value;
 
 
-            try {
+        if (password !== confirmPassword) {
 
-                const response = await fetch(
+            showMessage(
+                "Passwords do not match.",
+                false
+            );
+
+            return;
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating Account...";
+
+
+        try {
+
+            const response =
+                await fetch(
                     "/api/signup",
                     {
                         method: "POST",
@@ -351,56 +333,91 @@
                 );
 
 
-                const data =
-                    await response.json();
+            const data =
+                await response.json();
 
 
-                if (response.ok && data.success) {
+            if (
+                response.ok &&
+                data.success
+            ) {
 
-                    status.textContent =
-                        "✅ Account created successfully!";
-
-                    setTimeout(function() {
-
-                        window.location.href =
-                            "/signin";
-
-                    }, 1000);
-
-                    return;
-                }
-
-
-                status.textContent =
-                    "❌ " +
-                    (
-                        data.message ||
-                        "Unable to create account."
-                    );
-
-
-            } catch (error) {
-
-                console.error(
-                    "Signup error:",
-                    error
+                showMessage(
+                    "Account created! Redirecting to Sign In...",
+                    true
                 );
 
-                status.textContent =
-                    "❌ Could not connect to the server.";
+                setTimeout(
+                    function() {
+                        window.location.href =
+                            "/signin";
+                    },
+                    1200
+                );
 
-            } finally {
-
-                button.disabled = false;
-                button.textContent =
-                    "🚀 Create Account";
-
+                return;
             }
 
-        });
 
-    </script>
+            showMessage(
+                data.message ||
+                "Could not create account.",
+                false
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Could not connect to the server.",
+                false
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Account";
+        }
+
+    }
+);
+
+
+function showMessage(text, success) {
+
+    message.textContent = text;
+
+    message.style.display = "block";
+
+    if (success) {
+
+        message.style.color =
+            "#63e6be";
+
+        message.style.background =
+            "rgba(30, 255, 150, 0.08)";
+
+        message.style.border =
+            "1px solid rgba(30, 255, 150, 0.25)";
+
+    } else {
+
+        message.style.color =
+            "#ff7d9c";
+
+        message.style.background =
+            "rgba(255, 30, 90, 0.08)";
+
+        message.style.border =
+            "1px solid rgba(255, 30, 90, 0.25)";
+    }
+}
+
+</script>
 
 </body>
-
 </html>
