@@ -1,11 +1,14 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Render0X - Chat</title>
 
@@ -18,1050 +21,582 @@
         }
 
         body {
+
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #030510;
+
             color: white;
+
             display: flex;
             flex-direction: column;
         }
 
-        /* ================= HEADER ================= */
-
         header {
+
             height: 80px;
+
             padding: 0 5%;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            border-bottom: 1px solid rgba(120, 90, 255, 0.2);
+            border-bottom:
+                1px solid
+                rgba(120, 90, 255, 0.2);
 
-            background: rgba(3, 5, 16, 0.97);
-
-            position: relative;
-            z-index: 10;
+            background:
+                rgba(3, 5, 16, 0.96);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
 
-            text-decoration: none;
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
             color: white;
 
             font-size: 27px;
+
             font-weight: bold;
+
+            text-decoration: none;
         }
 
         .logo-icon {
-            width: 44px;
-            height: 38px;
 
-            border: 3px solid #a83cff;
-            border-right-color: #318cff;
+            width: 40px;
+            height: 36px;
 
-            border-radius: 12px;
+            border:
+                3px solid #a83cff;
+
+            border-right-color:
+                #318cff;
+
+            border-radius: 11px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             box-shadow:
-                0 0 12px rgba(190, 40, 255, 0.7),
-                0 0 18px rgba(40, 120, 255, 0.4);
-
-            position: relative;
+                0 0 12px
+                rgba(190, 40, 255, 0.5);
         }
 
         .logo-icon::before {
+
             content: "•••";
 
-            color: #9d52ff;
+            color: #a653ff;
 
-            font-size: 17px;
-
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
-        .logo-icon::after {
-            content: "";
+        .user-area {
 
-            position: absolute;
-
-            bottom: -8px;
-            left: 7px;
-
-            width: 12px;
-            height: 12px;
-
-            border-left: 3px solid #a83cff;
-
-            transform: skew(-25deg);
-        }
-
-        .logo span {
-            background: linear-gradient(
-                90deg,
-                white 45%,
-                #a63dff 70%,
-                #318cff
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-right {
             display: flex;
+
             align-items: center;
-            gap: 18px;
+
+            gap: 14px;
         }
 
-        #userName {
-            color: #b9a9ff;
+        .signed-user {
+
+            padding: 9px 15px;
+
+            border-radius: 20px;
+
+            color: #bfa0ff;
+
+            background:
+                rgba(150, 50, 255, 0.08);
+
+            border:
+                1px solid
+                rgba(150, 50, 255, 0.3);
+
             font-size: 14px;
         }
 
-        .logout-button {
+        .logout {
+
             padding: 10px 18px;
 
             border-radius: 9px;
 
             color: white;
 
-            border: 2px solid transparent;
+            border:
+                1px solid
+                rgba(230, 40, 255, 0.5);
 
             background:
-                linear-gradient(#080b1a, #080b1a) padding-box,
-                linear-gradient(90deg, #ed27ff, #348cff) border-box;
+                rgba(100, 30, 150, 0.1);
 
             cursor: pointer;
-
-            font-size: 14px;
-
-            transition: 0.25s;
-        }
-
-        .logout-button:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 0 20px rgba(180, 50, 255, 0.5);
-        }
-
-        /* ================= MAIN ================= */
-
-        main {
-            flex: 1;
-
-            display: flex;
-            justify-content: center;
-
-            position: relative;
-
-            overflow: hidden;
-
-            background:
-                radial-gradient(
-                    circle at 20% 40%,
-                    rgba(130, 0, 255, 0.12),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 80% 60%,
-                    rgba(0, 100, 255, 0.12),
-                    transparent 30%
-                );
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 1000px;
-
-            height: calc(100vh - 80px);
-
-            display: flex;
-            flex-direction: column;
-
-            padding: 25px 20px;
-        }
-
-        /* ================= CHAT TITLE ================= */
-
-        .chat-title {
-            text-align: center;
-
-            margin-bottom: 20px;
-        }
-
-        .chat-title h1 {
-            font-size: 32px;
-
-            background: linear-gradient(
-                90deg,
-                #d03cff,
-                #7650ff,
-                #318cff
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .chat-title p {
-            color: #85899b;
-            margin-top: 7px;
-            font-size: 14px;
-        }
-
-        /* ================= MESSAGES ================= */
-
-        .messages {
-            flex: 1;
-
-            overflow-y: auto;
-
-            padding: 20px;
-
-            border-radius: 18px;
-
-            border: 1px solid rgba(120, 90, 255, 0.2);
-
-            background: rgba(5, 7, 20, 0.75);
-
-            box-shadow:
-                inset 0 0 40px rgba(80, 40, 255, 0.04);
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 14px;
-        }
-
-        .messages::-webkit-scrollbar {
-            width: 7px;
-        }
-
-        .messages::-webkit-scrollbar-track {
-            background: #050713;
-        }
-
-        .messages::-webkit-scrollbar-thumb {
-            background: #5630a8;
-            border-radius: 10px;
-        }
-
-        .message {
-            max-width: 75%;
-
-            padding: 12px 16px;
-
-            border-radius: 14px;
-
-            line-height: 1.5;
-
-            font-size: 15px;
-
-            word-wrap: break-word;
-        }
-
-        .message.user {
-            align-self: flex-end;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(126, 43, 255, 0.35),
-                    rgba(40, 100, 255, 0.25)
-                );
-
-            border: 1px solid rgba(170, 70, 255, 0.4);
-        }
-
-        .message.bot {
-            align-self: flex-start;
-
-            background: rgba(20, 23, 42, 0.9);
-
-            border: 1px solid rgba(100, 110, 160, 0.2);
-
-            color: #d9d9e5;
-        }
-
-        .message.system {
-            align-self: center;
-
-            color: #888ca0;
-
-            font-size: 13px;
-
-            background: transparent;
-
-            border: none;
-        }
-
-        /* ================= INPUT ================= */
-
-        .input-area {
-            display: flex;
-
-            gap: 10px;
-
-            margin-top: 15px;
-        }
-
-        #messageInput {
-            flex: 1;
-
-            min-height: 50px;
-
-            padding: 14px 17px;
-
-            border-radius: 12px;
-
-            outline: none;
-
-            border: 1px solid rgba(120, 90, 255, 0.3);
-
-            background: #080b1a;
-
-            color: white;
-
-            font-size: 15px;
 
             transition: 0.2s;
         }
 
-        #messageInput:focus {
-            border-color: #8b45ff;
+        .logout:hover {
 
-            box-shadow:
-                0 0 15px rgba(140, 50, 255, 0.2);
+            background:
+                linear-gradient(
+                    90deg,
+                    #8c2cff,
+                    #327dff
+                );
+
+            transform: translateY(-2px);
         }
 
-        #messageInput::placeholder {
-            color: #676b7e;
+        main {
+
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .chat-box {
+
+            width: 900px;
+
+            max-width: 100%;
+
+            height: 650px;
+
+            max-height: 80vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            background:
+                rgba(7, 10, 25, 0.95);
+
+            border:
+                1px solid
+                rgba(130, 80, 255, 0.25);
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 0 40px
+                rgba(120, 40, 255, 0.1);
+        }
+
+        .chat-header {
+
+            padding: 18px 22px;
+
+            border-bottom:
+                1px solid
+                rgba(120, 90, 255, 0.15);
+
+            color: #cfcfe0;
+
+            font-size: 16px;
+        }
+
+        #messages {
+
+            flex: 1;
+
+            padding: 22px;
+
+            overflow-y: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .message {
+
+            max-width: 75%;
+
+            padding: 12px 16px;
+
+            border-radius: 13px;
+
+            line-height: 1.5;
+
+            font-size: 15px;
+        }
+
+        .bot {
+
+            align-self: flex-start;
+
+            background:
+                rgba(110, 50, 220, 0.12);
+
+            border:
+                1px solid
+                rgba(150, 80, 255, 0.2);
+        }
+
+        .user {
+
+            align-self: flex-end;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(120, 40, 220, 0.35),
+                    rgba(40, 100, 230, 0.35)
+                );
+        }
+
+        .input-area {
+
+            display: flex;
+
+            gap: 10px;
+
+            padding: 16px;
+
+            border-top:
+                1px solid
+                rgba(120, 90, 255, 0.15);
+        }
+
+        #messageInput {
+
+            flex: 1;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(120, 90, 255, 0.3);
+
+            background: #050816;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        #messageInput:focus {
+
+            border-color: #9c43ff;
+
+            box-shadow:
+                0 0 12px
+                rgba(150, 50, 255, 0.15);
         }
 
         #sendButton {
-            width: 100px;
+
+            padding: 0 22px;
 
             border: none;
 
-            border-radius: 12px;
+            border-radius: 10px;
 
             color: white;
 
             background:
                 linear-gradient(
                     90deg,
-                    #792cff,
+                    #8d2cff,
                     #327dff
                 );
 
             cursor: pointer;
-
-            font-size: 15px;
-
-            transition: 0.2s;
         }
 
-        #sendButton:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 0 20px rgba(120, 50, 255, 0.4);
-        }
-
-        #sendButton:disabled {
-            opacity: 0.5;
-
-            cursor: not-allowed;
-
-            transform: none;
-
-            box-shadow: none;
-        }
-
-        /* ================= STATUS ================= */
-
-        #connectionStatus {
-            text-align: center;
-
-            min-height: 18px;
-
-            margin-top: 8px;
-
-            color: #777c91;
-
-            font-size: 12px;
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 700px) {
+        @media(max-width:700px) {
 
             header {
+
                 height: auto;
 
                 padding: 15px 20px;
+
+                gap: 12px;
+
+                flex-wrap: wrap;
             }
 
-            .logo {
-                font-size: 22px;
+            .signed-user {
+
+                font-size: 12px;
             }
 
-            .logo-icon {
-                width: 38px;
-                height: 34px;
-            }
+            .chat-box {
 
-            #userName {
-                display: none;
-            }
-
-            .logout-button {
-                padding: 8px 12px;
-            }
-
-            .chat-container {
-                height: calc(100vh - 70px);
-
-                padding: 15px 10px;
-            }
-
-            .chat-title h1 {
-                font-size: 27px;
-            }
-
-            .messages {
-                padding: 12px;
+                height: 75vh;
             }
 
             .message {
-                max-width: 88%;
+
+                max-width: 90%;
             }
 
-            #sendButton {
-                width: 75px;
-            }
         }
 
     </style>
 
 </head>
 
-
 <body>
 
+    <header>
 
-<!-- ================= HEADER ================= -->
+        <a href="/" class="logo">
 
-<header>
+            <div class="logo-icon"></div>
 
-    <a href="index.html" class="logo">
+            Render0X
 
-        <div class="logo-icon"></div>
+        </a>
 
-        <span>Render0X</span>
+        <div class="user-area">
 
-    </a>
-
-
-    <div class="header-right">
-
-        <span id="userName">
-            Checking account...
-        </span>
-
-        <button
-            onclick="logout()"
-            class="logout-button"
-        >
-            🚪 Logout
-        </button>
-
-    </div>
-
-</header>
-
-
-<!-- ================= MAIN ================= -->
-
-<main>
-
-    <div class="chat-container">
-
-
-        <div class="chat-title">
-
-            <h1>
-                Render0X Chat
-            </h1>
-
-            <p>
-                Connect. Chat. Play. Together.
-            </p>
-
-        </div>
-
-
-        <!-- ================= MESSAGES ================= -->
-
-        <div
-            id="messages"
-            class="messages"
-        >
-
-            <div class="message system">
-                Connecting to Render0X...
+            <div class="signed-user">
+                ✓ Signed in as
+                <strong id="username">
+                    {{ username }}
+                </strong>
             </div>
 
-        </div>
-
-
-        <!-- ================= INPUT ================= -->
-
-        <div class="input-area">
-
-            <input
-                type="text"
-                id="messageInput"
-                placeholder="Type your message..."
-                autocomplete="off"
-            >
-
             <button
-                id="sendButton"
-                onclick="sendMessage()"
+                class="logout"
+                onclick="logout()"
             >
-                Send
+                🚪 Logout
             </button>
 
         </div>
 
+    </header>
 
-        <div id="connectionStatus">
-            Checking connection...
+
+    <main>
+
+        <div class="chat-box">
+
+            <div class="chat-header">
+                💬 Render0X Chat
+            </div>
+
+            <div id="messages">
+
+                <div class="message bot">
+                    Welcome to Render0X!
+                    You are successfully signed in.
+                </div>
+
+            </div>
+
+            <div class="input-area">
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    placeholder="Type a message..."
+                    autocomplete="off"
+                >
+
+                <button id="sendButton">
+                    Send
+                </button>
+
+            </div>
+
         </div>
 
-
-    </div>
-
-</main>
+    </main>
 
 
-<script>
+    <script>
 
-/* =====================================================
-   RENDER0X CHAT CONFIGURATION
-===================================================== */
+        const input =
+            document.getElementById("messageInput");
 
-const API_URL =
-    "https://render0x-contact.onrender.com";
-
-
-/* =====================================================
-   PAGE STATE
-===================================================== */
-
-let currentUser = null;
-
-let checkingSession = false;
-
-
-/* =====================================================
-   ADD MESSAGE
-===================================================== */
-
-function addMessage(text, type) {
-
-    const messages =
-        document.getElementById("messages");
-
-    const message =
-        document.createElement("div");
-
-    message.className =
-        "message " + type;
-
-    message.textContent =
-        text;
-
-    messages.appendChild(message);
-
-    messages.scrollTop =
-        messages.scrollHeight;
-}
-
-
-/* =====================================================
-   CHECK LOGIN
-===================================================== */
-
-async function checkLogin() {
-
-    if (checkingSession) {
-        return;
-    }
-
-    checkingSession = true;
-
-    const status =
-        document.getElementById("connectionStatus");
-
-    try {
-
-        status.textContent =
-            "Checking login...";
-
-
-        const response =
-            await fetch(
-                API_URL + "/me",
-                {
-                    method: "GET",
-
-                    credentials: "include",
-
-                    headers: {
-                        "Accept": "application/json"
-                    },
-
-                    cache: "no-store"
-                }
-            );
-
-
-        /*
-         * If the server says the session is invalid,
-         * then return to signin.
-         */
-
-        if (response.status === 401 ||
-            response.status === 403) {
-
-            window.location.replace(
-                "signin.html"
-            );
-
-            return;
-        }
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server returned " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if (!data.success ||
-            !data.user) {
-
-            window.location.replace(
-                "signin.html"
-            );
-
-            return;
-        }
-
-
-        /* Save logged-in user */
-
-        currentUser =
-            data.user;
-
-
-        /* Show name */
-
-        document.getElementById(
-            "userName"
-        ).textContent =
-            data.user.name ||
-            data.user.email ||
-            "User";
-
-
-        /* Clear connection message */
-
-        status.textContent =
-            "✓ Connected";
-
-
-        /*
-         * Replace the initial connecting message.
-         */
+        const sendButton =
+            document.getElementById("sendButton");
 
         const messages =
-            document.getElementById(
-                "messages"
-            );
-
-        messages.innerHTML = "";
+            document.getElementById("messages");
 
 
-        addMessage(
-            "Welcome, " +
-            (
-                data.user.name ||
-                "User"
-            ) +
-            "! You are signed in.",
-            "system"
-        );
+        function addMessage(text, type) {
 
+            const message =
+                document.createElement("div");
 
-    } catch (error) {
+            message.className =
+                "message " + type;
 
-        console.error(
-            "Session check error:",
-            error
-        );
+            message.textContent = text;
 
+            messages.appendChild(message);
 
-        /*
-         * IMPORTANT:
-         *
-         * Do NOT immediately redirect when there
-         * is a temporary network/server problem.
-         *
-         * This prevents the page from flashing
-         * and unnecessarily returning to signin.
-         */
-
-        status.textContent =
-            "⚠ Unable to contact server";
-
-
-        addMessage(
-            "Unable to connect to the Render0X server. Please try again.",
-            "system"
-        );
-
-    } finally {
-
-        checkingSession = false;
-
-    }
-
-}
-
-
-/* =====================================================
-   SEND MESSAGE
-===================================================== */
-
-async function sendMessage() {
-
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
-
-    const button =
-        document.getElementById(
-            "sendButton"
-        );
-
-    const text =
-        input.value.trim();
-
-
-    if (!text) {
-        return;
-    }
-
-
-    /*
-     * Don't send if we haven't confirmed
-     * that the user is logged in.
-     */
-
-    if (!currentUser) {
-
-        addMessage(
-            "Please wait until your account is connected.",
-            "system"
-        );
-
-        return;
-    }
-
-
-    /* Show user's message */
-
-    addMessage(
-        text,
-        "user"
-    );
-
-
-    input.value = "";
-
-    button.disabled = true;
-
-    button.textContent =
-        "Sending...";
-
-
-    try {
-
-        /*
-         * IMPORTANT:
-         *
-         * This assumes your Flask backend
-         * has a POST /chat endpoint.
-         */
-
-        const response =
-            await fetch(
-                API_URL + "/chat",
-                {
-                    method: "POST",
-
-                    credentials: "include",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        message: text
-                    })
-                }
-            );
-
-
-        if (response.status === 401 ||
-            response.status === 403) {
-
-            currentUser = null;
-
-            addMessage(
-                "Your login session has expired. Please sign in again.",
-                "system"
-            );
-
-            setTimeout(function () {
-
-                window.location.replace(
-                    "signin.html"
-                );
-
-            }, 1200);
-
-            return;
+            messages.scrollTop =
+                messages.scrollHeight;
         }
 
 
-        if (!response.ok) {
+        async function sendMessage() {
 
-            throw new Error(
-                "Chat request failed: " +
-                response.status
-            );
+            const text =
+                input.value.trim();
 
-        }
-
-
-        const data =
-            await response.json();
-
-
-        /*
-         * Your backend can return one of these:
-         *
-         * { "success": true, "response": "Hello" }
-         *
-         * OR
-         *
-         * { "success": true, "message": "Hello" }
-         */
-
-        const reply =
-            data.response ||
-            data.reply ||
-            data.message;
-
-
-        if (data.success &&
-            reply) {
-
-            addMessage(
-                reply,
-                "bot"
-            );
-
-        } else {
-
-            addMessage(
-                "The server did not return a chat response.",
-                "system"
-            );
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Chat error:",
-            error
-        );
-
-
-        addMessage(
-            "Could not send your message. Please try again.",
-            "system"
-        );
-
-
-    } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-            "Send";
-
-        input.focus();
-
-    }
-
-}
-
-
-/* =====================================================
-   ENTER KEY
-===================================================== */
-
-document
-    .getElementById("messageInput")
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-
-                event.preventDefault();
-
-                sendMessage();
-
+            if (!text) {
+                return;
             }
 
-        }
-    );
+            addMessage(text, "user");
 
+            input.value = "";
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+            try {
 
-async function logout() {
+                const response =
+                    await fetch("/api/chat", {
 
-    const button =
-        document.querySelector(
-            ".logout-button"
-        );
+                        method: "POST",
 
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-    button.disabled = true;
+                        body: JSON.stringify({
+                            message: text
+                        })
 
-    button.textContent =
-        "Logging out...";
+                    });
 
+                const data =
+                    await response.json();
 
-    try {
+                if (response.status === 401) {
 
-        const response =
-            await fetch(
-                API_URL + "/logout",
-                {
-                    method: "POST",
+                    window.location.href =
+                        "/signin";
 
-                    credentials: "include",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
+                    return;
                 }
-            );
 
+                if (data.success) {
 
-        /*
-         * Whether the backend returns success
-         * or the session is already gone,
-         * send the user back to signin.
-         */
+                    addMessage(
+                        data.reply,
+                        "bot"
+                    );
 
-        if (response.ok) {
+                } else {
 
-            window.location.replace(
-                "signin.html"
-            );
+                    addMessage(
+                        data.message ||
+                        "Something went wrong.",
+                        "bot"
+                    );
+                }
 
-            return;
+            } catch (error) {
+
+                console.error(error);
+
+                addMessage(
+                    "Could not connect to the server.",
+                    "bot"
+                );
+            }
         }
 
 
-        /*
-         * Even if logout endpoint returns an
-         * unexpected response, don't leave the
-         * user stuck on the chat page.
-         */
-
-        window.location.replace(
-            "signin.html"
+        sendButton.addEventListener(
+            "click",
+            sendMessage
         );
 
 
-    } catch (error) {
+        input.addEventListener(
+            "keydown",
+            function(event) {
 
-        console.error(
-            "Logout error:",
-            error
+                if (event.key === "Enter") {
+                    sendMessage();
+                }
+
+            }
         );
 
 
-        /*
-         * The local page should still leave
-         * the chat screen.
-         */
+        async function logout() {
 
-        window.location.replace(
-            "signin.html"
-        );
+            try {
 
-    }
+                const response =
+                    await fetch(
+                        "/api/logout",
+                        {
+                            method: "POST"
+                        }
+                    );
 
-}
+                const data =
+                    await response.json();
 
+                if (data.success) {
 
-/* =====================================================
-   START SESSION CHECK
-===================================================== */
+                    window.location.href =
+                        "/signin";
 
-checkLogin();
+                } else {
 
-</script>
+                    alert(
+                        "Logout failed."
+                    );
+                }
 
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Could not connect to the server."
+                );
+            }
+        }
+
+    </script>
 
 </body>
 
 </html>
- 
